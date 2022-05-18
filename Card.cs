@@ -6,9 +6,9 @@ namespace Kortspel
 {
     class Card
     {
-        int number;
-        string symbol;
-        string color;
+        private int number;
+        private string symbol;
+        private string color;
         public Card(int number, string symbol, string color)
         {
             this.number = number;

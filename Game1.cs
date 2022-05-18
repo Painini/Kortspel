@@ -8,6 +8,8 @@ namespace Kortspel
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private CardDeck deck;
+        private CardDeckHandler deckHandler;
 
         public Game1()
         {
@@ -27,6 +29,10 @@ namespace Kortspel
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            deck = new CardDeck();
+            deckHandler = new CardDeckHandler();
+            deckHandler.shuffleDeck(deck);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -35,7 +41,7 @@ namespace Kortspel
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            MouseReader.Update();
 
             base.Update(gameTime);
         }
@@ -43,8 +49,6 @@ namespace Kortspel
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            // yo mama fat
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
