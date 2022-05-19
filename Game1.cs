@@ -12,6 +12,68 @@ namespace Kortspel
         private CardDeckHandler deckHandler;
         private SQliteHandler sqlitehandler;
 
+        #region 
+
+        Texture2D onec;
+        Texture2D twoc;
+        Texture2D threec;
+        Texture2D fourc;
+        Texture2D fivec;
+        Texture2D sixc;
+        Texture2D sevenc;
+        Texture2D eightc;
+        Texture2D ninec;
+        Texture2D tenc;
+        Texture2D elevenc;
+        Texture2D twelvec;
+        Texture2D thirteenc;
+
+        Texture2D onec;
+        Texture2D twoc;
+        Texture2D threec;
+        Texture2D fourc;
+        Texture2D fivec;
+        Texture2D sixc;
+        Texture2D sevenc;
+        Texture2D eightc;
+        Texture2D ninec;
+        Texture2D tenc;
+        Texture2D elevenc;
+        Texture2D twelvec;
+        Texture2D thirteenc;
+
+        Texture2D onec;
+        Texture2D twoc;
+        Texture2D threec;
+        Texture2D fourc;
+        Texture2D fivec;
+        Texture2D sixc;
+        Texture2D sevenc;
+        Texture2D eightc;
+        Texture2D ninec;
+        Texture2D tenc;
+        Texture2D elevenc;
+        Texture2D twelvec;
+        Texture2D thirteenc;
+
+        Texture2D onec;
+        Texture2D twoc;
+        Texture2D threec;
+        Texture2D fourc;
+        Texture2D fivec;
+        Texture2D sixc;
+        Texture2D sevenc;
+        Texture2D eightc;
+        Texture2D ninec;
+        Texture2D tenc;
+        Texture2D elevenc;
+        Texture2D twelvec;
+        Texture2D thirteenc;
+
+
+
+        #endregion
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
