@@ -82,7 +82,15 @@ namespace Kortspel
         public void AddPlayerToTable(string player)
         {
             Open();
-            _cmd.CommandText = "INSERT INTO blackjack(player, chips) VALUES(" + player + ", " + 0 + ");";
+            _cmd.CommandText = "INSERT INTO blackjack(player, chips) VALUES(@player, "+0+");";
+
+            SQLiteParameter playerParam = new SQLiteParameter("@player", System.Data.DbType.String);
+
+            playerParam.Value = player;
+
+            _cmd.Parameters.Add(playerParam);
+
+            _cmd.Prepare();
             _cmd.ExecuteNonQuery();
             Close();
         }
