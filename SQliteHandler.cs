@@ -46,9 +46,10 @@ namespace Kortspel
             Open();
             _cmd.CommandText = "DROP TABLE IF EXISTS blackjack;";
             _cmd.ExecuteNonQuery();
-
-            _cmd.CommandText = "CREATE TABLE blackjack(id INTEGER PRIMARY KEY AUTOINCREMENT, player TEXT, chips INTEGER);";
+            _cmd.CommandText = "CREATE TABLE IF NOT EXISTS blackjack(id INTEGER PRIMARY KEY AUTOINCREMENT, player TEXT, chips INTEGER);";
             _cmd.ExecuteNonQuery();
+
+
             Close();
         }
 
@@ -95,15 +96,45 @@ namespace Kortspel
             Close();
         }
 
-        //public void UpdatePlayerChipAmount(string chips)
-        //{
-        //    Open();
-        //    _cmd.CommandText = 
+        public void UpdatePlayerChipAmount(string chips, int id)
+        {
+            Open();
+            _cmd.CommandText = "UPDATE blackjack SET chips = @chips WHERE id = @id;";
+
+            SQLiteParameter chipsParam = new SQLiteParameter("@chips", System.Data.DbType.String);
+            SQLiteParameter idParam = new SQLiteParameter("@id", System.Data.DbType.String);
+
+            chipsParam.Value = chips;
+            idParam.Value = id;
+
+            _cmd.Parameters.Add(chipsParam);
+            _cmd.Parameters.Add(idParam);
+
+            _cmd.Prepare();
+            _cmd.ExecuteNonQuery();
 
 
-            
-        //    Close();
-        //}
+
+            Close();
+        }
+
+        public void DeletePlayerFromTable(int id)
+
+        {
+            Open();
+            _cmd.CommandText = "DELETE FROM blackjack WHERE id = @id;";
+
+            SQLiteParameter idParam = new SQLiteParameter("@id", System.Data.DbType.String);
+
+            idParam.Value = id;
+
+            _cmd.Parameters.Add(idParam);
+
+            _cmd.Prepare();
+            _cmd.ExecuteNonQuery();
+
+            Close();
+        }
     }
 }
 

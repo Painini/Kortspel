@@ -36,7 +36,8 @@ namespace Kortspel
             sqlitehandler = new SQliteHandler("databastim.db");
             sqlitehandler.CreateTable();
 
-            sqlitehandler.AddPlayerToTable("rumpmannen");
+            
+            //sqlitehandler.UpdatePlayerChipAmount("500", 1);
 
             // TODO: use this.Content to load your game content here
         }
