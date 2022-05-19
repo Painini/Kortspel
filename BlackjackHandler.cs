@@ -13,6 +13,9 @@ namespace Kortspel
         int playerSum;
         int dealerSum;
 
+
+
+
         public void DealerLogicHandler()
         {
 

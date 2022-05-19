@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kortspel", "Kortspel.csproj", "{5B88D60C-FA92-43E4-B5BF-D4E4E33923FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B88D60C-FA92-43E4-B5BF-D4E4E33923FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B88D60C-FA92-43E4-B5BF-D4E4E33923FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B88D60C-FA92-43E4-B5BF-D4E4E33923FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B88D60C-FA92-43E4-B5BF-D4E4E33923FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E45070F9-3164-47ED-B0EC-92A8CCC0A6BF}
+	EndGlobalSection
+EndGlobal
