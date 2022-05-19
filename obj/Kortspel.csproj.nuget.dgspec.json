@@ -51,6 +51,10 @@
             "MonoGame.Framework.WindowsDX": {
               "target": "Package",
               "version": "[3.8.0.1641, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.115.5, )"
             }
           },
           "imports": [

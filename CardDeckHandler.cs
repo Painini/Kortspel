@@ -30,5 +30,10 @@ namespace Kortspel
         }
 
 
+        public CardDeckHandler()
+        {
+
+        }
+
     }
 }

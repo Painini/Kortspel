@@ -35,3 +35,8 @@ C:\Users\INF\source\repos\Kortspel\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.csp
 C:\Users\INF\source\repos\Kortspel\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.dll
 C:\Users\INF\source\repos\Kortspel\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.pdb
 C:\Users\INF\source\repos\Kortspel\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.genruntimeconfig.cache
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\System.Data.SQLite.dll
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\SQLite.Interop.dll
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\SQLite.Interop.dll
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\SQLite.Interop.dll
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SQLite.Interop.dll

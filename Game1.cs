@@ -10,6 +10,7 @@ namespace Kortspel
         private SpriteBatch _spriteBatch;
         private CardDeck deck;
         private CardDeckHandler deckHandler;
+        private SQliteHandler sqlitehandler;
 
         public Game1()
         {
@@ -32,6 +33,10 @@ namespace Kortspel
             deck = new CardDeck();
             deckHandler = new CardDeckHandler();
             deckHandler.shuffleDeck(deck);
+            sqlitehandler = new SQliteHandler("databastim.db");
+            sqlitehandler.CreateTable();
+
+            sqlitehandler.AddPlayerToTable("rumpmannen");
 
             // TODO: use this.Content to load your game content here
         }
