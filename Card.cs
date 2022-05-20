@@ -6,14 +6,21 @@ namespace Kortspel
 {
     class Card
     {
-        private int number;
+        private int value;
         private string symbol;
         private string color;
-        public Card(int number, string symbol, string color)
+        public Card(int value, string symbol, string color)
         {
-            this.number = number;
+            this.value = value;
             this.symbol = symbol;
             this.color = color;
         }
+
+        public int ReturnCardValue()
+        {
+            return value;
+        }
+
     }
+
 }

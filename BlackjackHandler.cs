@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kortspel
 {
-    class BlackjackHandler
+    public class BlackjackHandler
     {
 
         int startingChips;
@@ -13,12 +13,29 @@ namespace Kortspel
         int playerSum;
         int dealerSum;
 
+        CardDeck deck;
+        CardDeckHandler deckHandler;
 
 
 
-        public void DealerLogicHandler()
+        public void GameStartSetup()
+        {
+            deck = new CardDeck();
+            deckHandler = new CardDeckHandler();
+            deckHandler.shuffleDeck(deck);
+
+            startingChips = 100;
+            currentChips = startingChips;
+
+
+        }
+
+
+        public void DealerInitialCardsHandler()
         {
 
+
+            
         }
     }
 }

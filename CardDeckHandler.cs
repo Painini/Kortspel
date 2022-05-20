@@ -29,7 +29,6 @@ namespace Kortspel
             return deckToShuffle;
         }
 
-
         public CardDeckHandler()
         {
 

@@ -8,8 +8,6 @@ namespace Kortspel
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private CardDeck deck;
-        private CardDeckHandler deckHandler;
         private SQliteHandler sqlitehandler;
 
         #region 
@@ -83,7 +81,6 @@ namespace Kortspel
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
             base.Initialize();
         }
@@ -92,9 +89,6 @@ namespace Kortspel
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            deck = new CardDeck();
-            deckHandler = new CardDeckHandler();
-            deckHandler.shuffleDeck(deck);
             sqlitehandler = new SQliteHandler("databastim.db");
             sqlitehandler.CreateTable();
 
@@ -160,10 +154,6 @@ namespace Kortspel
             cardBack = Content.Load<Texture2D>("card_back.png");
             #endregion
 
-
-            //sqlitehandler.UpdatePlayerChipAmount("500", 1);
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
