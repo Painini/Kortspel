@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kortspel
 {
-    class CardDeck
+    public class CardDeck
     {
         private Card[] deck = new Card[52];
         private bool shuffled = false;
@@ -28,21 +28,49 @@ namespace Kortspel
         {
             for (int i = 0; i < 12; i++)
             {
-                deck[i] = new Card(i, "hearts", "red");
+                deck[i] = new Card(i, "hearts", "red", true);
             }
             for (int i = 12; i < 25; i++)
             {
-                deck[i] = new Card(i, "diamonds", "red");
+                deck[i] = new Card(i, "diamonds", "red", true);
             }
             for (int i = 25; i < 38; i++)
             {
-                deck[i] = new Card(i, "spades", "black");
+                deck[i] = new Card(i, "spades", "black", true);
             }
             for (int i = 38; i < 52; i++)
             {
-                deck[i] = new Card(i, "clubs", "black");
+                deck[i] = new Card(i, "clubs", "black", true);
             }
         }
 
+
+
+        //Attempt at removing cards that are given out from a deck, so that they cannot appear twice in the same round.
+
+        //public CardDeck(List<Card> cardsToRemove)
+        //{
+
+
+        //    for (int i = 0; i < 12; i++)
+        //    {
+        //        deck[i] = new Card(i, "hearts", "red");
+        //    }
+
+        //    for (int i = 12; i < 25; i++)
+        //    {
+        //        deck[i] = new Card(i, "diamonds", "red");
+        //    }
+
+        //    for (int i = 25; i < 38; i++)
+        //    {
+        //        deck[i] = new Card(i, "spades", "black");
+        //    }
+
+        //    for (int i = 38; i < 52; i++)
+        //    {
+        //        deck[i] = new Card(i, "clubs", "black");
+        //    }
+       // }
     }
 }

@@ -9,8 +9,9 @@ namespace Kortspel
         public enum Gamestates
         {
             menu,
-            playerTurn,
-            dealerTurn,
+            betting,
+            play,
+            result
         }
     }
 }
