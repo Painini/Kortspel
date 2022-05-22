@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kortspel
 {
-    static class Gamestate
+    class Gamestate
     {
         public enum Gamestates
         {
@@ -13,5 +13,12 @@ namespace Kortspel
             play,
             result
         }
+
+        public Gamestate()
+        {
+        }
+
+
+
     }
 }

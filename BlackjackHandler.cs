@@ -92,11 +92,16 @@ namespace Kortspel
         //Continue working here later
         public bool ResultCalcAndChipExchange()
         {
+
+
+
             if (playerSum > dealerSum && playerSum <= 21)
             {
                 currentChips += betChips;
                 int wonChips = betChips * 15 / 10;
                 currentChips += wonChips;
+                if (currentChips > highestChips)
+                    highestChips = currentChips;
                 return true;
             }
             else

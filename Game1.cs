@@ -9,7 +9,7 @@ namespace Kortspel
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SQliteHandler sqlitehandler;
-
+        private Gamestate.Gamestates currentState;
         #region 
 
         Texture2D acec;
@@ -81,6 +81,9 @@ namespace Kortspel
 
         protected override void Initialize()
         {
+            currentState = Gamestate.Gamestates.menu;
+
+            
 
             base.Initialize();
         }
@@ -163,6 +166,10 @@ namespace Kortspel
 
             MouseReader.Update();
 
+            if (currentState == Gamestate.Gamestates.menu)
+            {
+
+            }
             base.Update(gameTime);
         }
 
