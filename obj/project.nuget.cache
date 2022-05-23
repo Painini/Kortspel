@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ux8LiUVC7coOSkdgVL75F8ZZ04xN6uc9e23wNLBSis2EgFycCG50LckYJ6a6sVWqw4mtC9+hjFFBy5mLimqWQA==",
+  "dgSpecHash": "TTDJNynlIktSQm2QfrVmSb1aWLmdRYt+rRyiSZZlm7kOedg5A1Y6rihrKkGiLw1UbzZCLiy2gFQEZf7GIqT9gA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lofst\\Documents\\GitHub\\Kortspel\\Kortspel.csproj",
+  "projectFilePath": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\Kortspel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lofst\\.nuget\\packages\\libuv\\1.9.1\\libuv.1.9.1.nupkg.sha512",
     "C:\\Users\\lofst\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\1.1.0\\microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",

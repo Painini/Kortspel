@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
@@ -50,6 +52,18 @@ namespace Kortspel
             return cardsToGive;
         }
 
+        public void AssignImg(Texture2D[] imgs, CardDeck deck)
+        {
+            for (int i = 0; i < 52; i++)
+            {
+                deck.GetDeck()[i].SetImg(imgs[i]);
+                deck.GetDeck()[i].SetOrigin(imgs[i]);
+
+            }
+
+            foreach (Card c in deck.GetDeck())
+                c.CreateRectangle(c.GetImg());
+        }
 
         //Attempt at removing cards that are given out from a deck, so that they cannot appear twice in the same round.
 

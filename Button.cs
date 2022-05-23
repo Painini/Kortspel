@@ -10,19 +10,18 @@ namespace Kortspel
     public class Button: Obj
     {
         bool isHovering;
-        SpriteFont font;
         Color imgColor;
         Color textColor;
         public string text;
 
 
         //Fortsätt här sen
-        public Button(Texture2D img ,Vector2 pos):
+        public Button(Texture2D img, Vector2 pos):
             base()
         {
             this.pos = pos;
             this.img = img;
-            CreateRectangle();
+            //CreateRectangle(img);
         }
 
         public void SetButtColor(Color color)
@@ -57,16 +56,21 @@ namespace Kortspel
 
             }
 
+
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch sb)
+        public void Draw(GameTime gameTime, SpriteBatch sb, SpriteFont font)
         {
             imgColor = Color.White;
             textColor = Color.Black;
 
             if (isHovering)
             {
-                imgColor = Color.Gray;
+                if (MouseReader.mouseState.LeftButton == ButtonState.Released && MouseReader.oldMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    imgColor = Color.Gray;
+                }
+                
             }
 
             sb.Draw(img, bb, imgColor);

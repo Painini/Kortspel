@@ -16,8 +16,6 @@ namespace Kortspel
         Player player;
         Dealer dealer;
 
-
-        CardDeck deck;
         CardDeckHandler deckHandler;
 
         public void CalcPlayerSum()
@@ -38,9 +36,8 @@ namespace Kortspel
             CalcDealerSum();
         }
 
-        public void GameStartSetup(string playerName)
+        public void GameStartSetup(string playerName, CardDeck deck)
         {
-            deck = new CardDeck();
             deckHandler = new CardDeckHandler();
             deckHandler.shuffleDeck(deck);
 
@@ -58,7 +55,7 @@ namespace Kortspel
             currentChips -= betChips;
         }
 
-        public void RoundStart()
+        public void RoundStart(CardDeck deck)
         {
             player.SetCardsInHand(deckHandler.GiveCards(2, deck));
             dealer.SetCardsInHand(deckHandler.GiveCards(2, deck));
@@ -67,7 +64,7 @@ namespace Kortspel
             CalcSums();
         }
 
-        public void PlayerHit()
+        public void PlayerHit(CardDeck deck)
         {
             player.SetCardsInHand(deckHandler.GiveCards(1, deck));
             CalcPlayerSum();
@@ -79,7 +76,7 @@ namespace Kortspel
 
         }
 
-        public void PlayerStand ()
+        public void PlayerStand (CardDeck deck)
         {
             dealer.DealerFlip();
 

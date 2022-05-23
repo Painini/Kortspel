@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/ace_of_spades2.png</SourceFile>
-  <SourceTime>2022-05-18T09:54:15.6762111+02:00</SourceTime>
-  <DestFile>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/bin/Windows/ace_of_spades2.xnb</DestFile>
-  <DestTime>2022-05-23T10:03:53.0006886+02:00</DestTime>
+  <SourceFile>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/ace_of_spades2.png</SourceFile>
+  <SourceTime>2022-05-23T18:21:20.3511269+02:00</SourceTime>
+  <DestFile>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/ace_of_spades2.xnb</DestFile>
+  <DestTime>2022-05-23T21:43:50.4744377+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

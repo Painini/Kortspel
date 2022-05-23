@@ -7444,11 +7444,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lofst\\Documents\\GitHub\\Kortspel\\Kortspel.csproj",
+      "projectUniqueName": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\Kortspel.csproj",
       "projectName": "Kortspel",
-      "projectPath": "C:\\Users\\lofst\\Documents\\GitHub\\Kortspel\\Kortspel.csproj",
+      "projectPath": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\Kortspel.csproj",
       "packagesPath": "C:\\Users\\lofst\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lofst\\Documents\\GitHub\\Kortspel\\obj\\",
+      "outputPath": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lofst\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/9_of_diamonds.png</SourceFile>
-  <SourceTime>2022-05-18T09:54:15.4089283+02:00</SourceTime>
-  <DestFile>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/bin/Windows/9_of_diamonds.xnb</DestFile>
-  <DestTime>2022-05-23T10:03:52.5819033+02:00</DestTime>
+  <SourceFile>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/9_of_diamonds.png</SourceFile>
+  <SourceTime>2022-05-23T18:21:20.3461259+02:00</SourceTime>
+  <DestFile>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/9_of_diamonds.xnb</DestFile>
+  <DestTime>2022-05-23T21:43:50.2773936+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

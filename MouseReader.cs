@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
@@ -24,6 +26,7 @@ namespace Kortspel
 		//	return mouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released;
 		//}
 
+
 		//Update is called in the main Update function in Game1.
 
 		public static void Update()
@@ -31,7 +34,7 @@ namespace Kortspel
 			oldMouseState = mouseState;
 			mouseState = Mouse.GetState();
 
-
+			
 
 		}
 	}

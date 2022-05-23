@@ -14,11 +14,11 @@ namespace Kortspel
         protected Vector2 pos;
         protected Color color;
         protected Rectangle bb;
+        protected float scale;
 
 
         public Obj()   
         {
-            CreateRectangle();
         }
 
         public virtual void Update()
@@ -31,7 +31,7 @@ namespace Kortspel
 
         }
 
-        public virtual void CreateRectangle()
+        public virtual void CreateRectangle(Texture2D img)
         {
             bb = new Rectangle((int)pos.X, (int)pos.Y, img.Width, img.Height);
         }

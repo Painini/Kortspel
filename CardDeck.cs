@@ -27,6 +27,8 @@ namespace Kortspel
             return deck;
         }
 
+
+
         public CardDeck()
         {
             for (int i = 0; i < 12; i++)

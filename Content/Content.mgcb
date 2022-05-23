@@ -517,7 +517,7 @@
 /processorParam:TextureFormat=Color
 /build:black_joker.png
 
-#begin button.png
+#begin buttoncrop.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -527,7 +527,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button.png
+/build:buttoncrop.png
 
 #begin card_back.png
 /importer:TextureImporter

@@ -9,11 +9,14 @@ namespace Kortspel
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch sb;
         private SQliteHandler sqlitehandler;
         private Gamestate.Gamestates currentState;
         private List<Button> buttons;
+        private Player player;
+        private BoundingBoxHandler BBH;
+        private List<Card> tempcardlist;
         #region 
 
         //Texture2D acec;
@@ -76,35 +79,55 @@ namespace Kortspel
         Texture2D[] cardImgs;
         Texture2D cardBack;
         Texture2D buttonTexture;
+        CardDeck deck;
+        CardDeckHandler deckHandler;
+        private int screen_width = 1240;
+        private int screen_height = 800;
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+        }
+
+        private void SpriteBatchHandler()
+        {
+            deck.GetDeck()[1].Draw(sb);
+            
         }
 
         protected override void Initialize()
         {
             currentState = Gamestate.Gamestates.menu;
+
+            graphics.PreferredBackBufferWidth = screen_width;
+            graphics.PreferredBackBufferHeight = screen_height;
+            graphics.ApplyChanges();
+
             buttons = new List<Button>();
             cardImgs = new Texture2D[52];
+            deck = new CardDeck();
+            deckHandler = new CardDeckHandler();
+            player = new Player("poop", 100);
+            BBH = new BoundingBoxHandler();
+            buttons = new List<Button>();
 
+            player.SetCardsInHand(tempcardlist);
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            sb = new SpriteBatch(GraphicsDevice);
 
             sqlitehandler = new SQliteHandler("databastim.db");
             sqlitehandler.CreateTable();
-            buttons.Add(new Button(buttonTexture ,new Vector2(500, 500)));
-
+            //buttons.Add(new Button(buttonTexture ,new Vector2(500, 500)));
+            buttons.Add(new Button(buttonTexture, new Vector2(500, 500)));
 
             //ContentLoader for all Textures
-
             #region
             cardImgs[0] = Content.Load<Texture2D>("ace_of_clubs");
             cardImgs[1] = Content.Load<Texture2D>("2_of_clubs");
@@ -164,7 +187,9 @@ namespace Kortspel
             #endregion
             cardBack = Content.Load<Texture2D>("card_back");
             buttonTexture = Content.Load<Texture2D>("buttoncrop");
+            deckHandler.AssignImg(cardImgs, deck);
 
+            
 
         }
 
@@ -173,7 +198,11 @@ namespace Kortspel
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
             MouseReader.Update();
+
+            BBH.CardHoverLogic(player);
+
 
             if (currentState == Gamestate.Gamestates.menu)
             {
@@ -186,14 +215,14 @@ namespace Kortspel
         {
             GraphicsDevice.Clear(Color.DarkGreen);
 
+           
+
+            sb.Begin();
             SpriteBatchHandler();
+            sb.End();
 
             base.Draw(gameTime);
         }
 
-        private void SpriteBatchHandler()
-        {
-
-        }
     }
 }

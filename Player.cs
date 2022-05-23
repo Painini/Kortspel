@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kortspel
 {
-    class Player : Participator
+    public class Player : Participator
     {
         string name;
         int chipAmount;
