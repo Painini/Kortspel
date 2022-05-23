@@ -73,7 +73,7 @@ namespace Kortspel
         Texture2D thirteenh;
 
         Texture2D cardBack;
-        Texture2D button;
+        Texture2D buttonTexture;
 
         #endregion
 
@@ -100,7 +100,7 @@ namespace Kortspel
 
             sqlitehandler = new SQliteHandler("databastim.db");
             sqlitehandler.CreateTable();
-            buttons.Add()
+            buttons.Add(new Button(new Vector2(500, 500), buttonTexture));
 
 
             //ContentLoader for all Textures
