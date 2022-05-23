@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
@@ -24,23 +26,24 @@ namespace Kortspel
         {
             return deck;
         }
+
         public CardDeck()
         {
             for (int i = 0; i < 12; i++)
             {
-                deck[i] = new Card(i, "hearts", "red", true);
+                deck[i] = new Card(i, "hearts", true);
             }
             for (int i = 12; i < 25; i++)
             {
-                deck[i] = new Card(i, "diamonds", "red", true);
+                deck[i] = new Card(i, "diamonds", true);
             }
             for (int i = 25; i < 38; i++)
             {
-                deck[i] = new Card(i, "spades", "black", true);
+                deck[i] = new Card(i, "spades", true);
             }
             for (int i = 38; i < 52; i++)
             {
-                deck[i] = new Card(i, "clubs", "black", true);
+                deck[i] = new Card(i, "clubs", true);
             }
         }
 

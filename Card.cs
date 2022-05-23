@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
-    public class Card
+    public class Card: Obj
     {
         private int value;
         private string symbol;
-        private string color;
         private bool flipped;
-        public Card(int value, string symbol, string color, bool flipped)
+        private Color imgColor;
+        bool isHovering;
+
+        public Card(int value, string symbol, bool flipped):
+            base ()
         {
             this.value = value;
             this.symbol = symbol;
-            this.color = color;
             this.flipped = flipped;
-
+            CreateRectangle();
         }
 
         public int ReturnCardValue()
@@ -36,6 +40,25 @@ namespace Kortspel
             else
                 flipped = true;
         }
+
+        public override void Update()
+        {
+
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            imgColor = Color.AntiqueWhite;
+
+            if (isHovering)
+            {
+                imgColor = Color.White;
+            }
+
+            sb.Draw(img, bb, imgColor);
+        }
+
+        
 
     }
 

@@ -7,49 +7,42 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Kortspel
 {
-    public class Button
+    public class Button: Obj
     {
-        Rectangle buttDim;
-        Vector2 buttPosition;
         bool isHovering;
         SpriteFont font;
-        Texture2D texture;
-        Color buttColor;
+        Color imgColor;
         Color textColor;
-        public string buttText;
+        public string text;
 
 
         //Fortsätt här sen
-        public Button(Vector2 position, Texture2D texture)
+        public Button(Texture2D img ,Vector2 pos):
+            base()
         {
-            buttPosition = position;
-            this.texture = texture;
+            this.pos = pos;
+            this.img = img;
             CreateRectangle();
         }
 
         public void SetButtColor(Color color)
         {
-            buttColor = color;
+            imgColor = color;
         }
 
         public void SetPos(Vector2 newPos)
         {
-            buttPosition = newPos;
+            pos = newPos;
         }
 
         public Vector2 GetPos()
         {
-            return buttPosition;
+            return pos;
         }
 
         public void SetPos(string newText)
         {
-            buttText = newText;
-        }
-
-        public void CreateRectangle()
-        {
-            buttDim = new Rectangle((int)buttPosition.X, (int)buttPosition.Y, texture.Width, texture.Height);
+            text = newText;
         }
 
         public void Update(GameTime gameTime)
@@ -58,7 +51,7 @@ namespace Kortspel
 
             isHovering = false;
 
-            if(mouseRectangle.Intersects(buttDim))
+            if(mouseRectangle.Intersects(bb))
             {
                 isHovering = true;
 
@@ -66,22 +59,22 @@ namespace Kortspel
 
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch sb)
         {
-            buttColor = Color.White;
+            imgColor = Color.White;
             textColor = Color.Black;
 
             if (isHovering)
             {
-                buttColor = Color.Gray;
+                imgColor = Color.Gray;
             }
 
-            spriteBatch.Draw(texture, buttDim, buttColor);
+            sb.Draw(img, bb, imgColor);
 
-            float x = (buttDim.X + (buttDim.Width / 2)) - (font.MeasureString(buttText).X / 2);
-            float y = (buttDim.Y + (buttDim.Height / 2)) - (font.MeasureString(buttText).Y / 2);
+            float x = (bb.X + (bb.Width / 2)) - (font.MeasureString(text).X / 2);
+            float y = (bb.Y + (bb.Height / 2)) - (font.MeasureString(text).Y / 2);
 
-            spriteBatch.DrawString(font, buttText, new Vector2(x, y), textColor);
+            sb.DrawString(font, text, new Vector2(x, y), textColor);
         }
 
 
