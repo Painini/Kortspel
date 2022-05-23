@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/lofst/Documents/GitHub/Kortspel/Content/ace_of_hearts.png</SourceFile>
-  <SourceTime>2022-05-19T18:45:43.6934622+02:00</SourceTime>
-  <DestFile>C:/Users/lofst/Documents/GitHub/Kortspel/Content/bin/Windows/Content/ace_of_hearts.xnb</DestFile>
-  <DestTime>2022-05-19T20:09:17.1669177+02:00</DestTime>
+  <SourceFile>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/ace_of_hearts.png</SourceFile>
+  <SourceTime>2022-05-18T09:54:15.6093895+02:00</SourceTime>
+  <DestFile>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/bin/Windows/Content/ace_of_hearts.xnb</DestFile>
+  <DestTime>2022-05-23T11:02:26.8344859+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
