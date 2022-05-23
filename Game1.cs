@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace Kortspel
 {
@@ -10,6 +13,7 @@ namespace Kortspel
         private SpriteBatch _spriteBatch;
         private SQliteHandler sqlitehandler;
         private Gamestate.Gamestates currentState;
+        private List<Button> buttons;
         #region 
 
         Texture2D acec;
@@ -69,6 +73,7 @@ namespace Kortspel
         Texture2D thirteenh;
 
         Texture2D cardBack;
+        Texture2D button;
 
         #endregion
 
@@ -82,8 +87,9 @@ namespace Kortspel
         protected override void Initialize()
         {
             currentState = Gamestate.Gamestates.menu;
+            buttons = new List<Button>();
 
-            
+
 
             base.Initialize();
         }
@@ -94,6 +100,8 @@ namespace Kortspel
 
             sqlitehandler = new SQliteHandler("databastim.db");
             sqlitehandler.CreateTable();
+            buttons.Add()
+
 
             //ContentLoader for all Textures
 
@@ -155,6 +163,7 @@ namespace Kortspel
             thirteenh = Content.Load<Texture2D>("king_of_hearts");
 
             cardBack = Content.Load<Texture2D>("card_back");
+            button = Content.Load<Texture2D>("buttoncrop");
             #endregion
 
         }

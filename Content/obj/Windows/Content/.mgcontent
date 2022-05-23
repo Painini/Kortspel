@@ -46,6 +46,7 @@
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/ace_of_spades.png</File>
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/ace_of_spades2.png</File>
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/black_joker.png</File>
+    <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/button.png</File>
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/card_back.png</File>
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/jack_of_clubs.png</File>
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/jack_of_clubs2.png</File>
@@ -74,6 +75,7 @@
     <File>C:/Users/INF/source/repos/Kortspel/Kortspel/Content/red_joker.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

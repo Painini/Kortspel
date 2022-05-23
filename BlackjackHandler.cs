@@ -92,9 +92,6 @@ namespace Kortspel
         //Continue working here later
         public bool ResultCalcAndChipExchange()
         {
-
-
-
             if (playerSum > dealerSum && playerSum <= 21)
             {
                 currentChips += betChips;
@@ -106,7 +103,6 @@ namespace Kortspel
             }
             else
                 return false;
-
         }
     }
 }

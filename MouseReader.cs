@@ -5,10 +5,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Kortspel
 {
-    static class MouseReader
+    static public class MouseReader
     {
 		//Here all of the variables for the MouseReader class are defined.
-
 
 		public static MouseState mouseState, oldMouseState = Mouse.GetState();
 
@@ -18,10 +17,12 @@ namespace Kortspel
 		{
 			return mouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released;
 		}
-		public static bool RightClick()
-		{
-			return mouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released;
-		}
+
+
+		//public static bool RightClick()
+		//{
+		//	return mouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released;
+		//}
 
 		//Update is called in the main Update function in Game1.
 
@@ -29,6 +30,8 @@ namespace Kortspel
 		{
 			oldMouseState = mouseState;
 			mouseState = Mouse.GetState();
+
+
 
 		}
 	}
