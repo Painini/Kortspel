@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/lofst/Documents/GitHub/Kortspel/Content/5_of_spades.png</SourceFile>
-  <SourceTime>2022-05-19T18:45:43.679459+02:00</SourceTime>
-  <DestFile>C:/Users/lofst/Documents/GitHub/Kortspel/Content/bin/Windows/Content/5_of_spades.xnb</DestFile>
-  <DestTime>2022-05-23T16:27:17.4175529+02:00</DestTime>
+  <SourceFile>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/5_of_spades.png</SourceFile>
+  <SourceTime>2022-05-23T18:21:20.3361235+02:00</SourceTime>
+  <DestFile>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/Content/5_of_spades.xnb</DestFile>
+  <DestTime>2022-05-23T18:21:22.2456518+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
