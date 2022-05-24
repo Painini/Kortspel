@@ -8,13 +8,13 @@ namespace Kortspel
 {
     public class Dealer : Participator
     {
-
+        Card card;
         //May build on later
 
 
         public void DealerFlip(Dealer dealer, Texture2D img)
         {
-            Card card = dealer.GetCardsInHand()[dealer.GetCardsInHand().Count - 1];
+            card = dealer.GetCardsInHand()[dealer.GetCardsInHand().Count - 1];
             card.ChangeFlipStatus(card, img);
             dealer.GetCardsInHand().RemoveAt(1);
             dealer.GetCardsInHand().Add(card);

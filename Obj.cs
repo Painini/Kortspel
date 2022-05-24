@@ -12,7 +12,6 @@ namespace Kortspel
     {
         protected Texture2D img;
         protected Vector2 pos;
-        protected Color color;
         protected Rectangle bb;
         protected float scale;
         protected Vector2 originPoint;

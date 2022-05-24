@@ -70,9 +70,8 @@ namespace Kortspel
                 flipped = true;
         }
 
-        public override void Update()
+        public void Update(Card[] cardArray)
         {
-
         }
 
 
@@ -82,7 +81,7 @@ namespace Kortspel
         {
             imgColor = Color.AntiqueWhite;
 
-
+            
             sb.Draw(img, pos, null, imgColor, 0.0f, originPoint, scale, SpriteEffects.None, 0.0f);
         }
 

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
-    class CardDeckHandler
+    public class CardDeckHandler
     {
         Random random = new Random();
         List<Card> cardsToGive;
@@ -34,25 +34,24 @@ namespace Kortspel
 
         public List<Card> GiveCards(int amountToGive, CardDeck deck)
         {
-            for (int i = 0; i <= amountToGive; i++)
-            {
-                int randomNumber = random.Next(0, 51);
-                try
-                {
-                    cardsToGive.Add(deck.GetDeck()[randomNumber]);
-                    deck.GetDeck()[randomNumber] = null;
-                }
-                catch (NullReferenceException)
-                {
-                    i--;
-                }
-               
-            }
+            cardsToGive = new List<Card>();
+            List<Card> listToTakeFrom = new List<Card>();
 
+            for (int i = 0; i < 52; i++)
+            {
+                listToTakeFrom.Add(deck.GetDeck()[i]);
+            }
+            for (int i = 0; i < amountToGive; i++)
+            {
+                
+                int randomNumber = random.Next(0, listToTakeFrom.Count - 1);
+                cardsToGive.Add(listToTakeFrom[randomNumber]);
+                listToTakeFrom.RemoveAt(randomNumber);   
+            }
             return cardsToGive;
         }
 
-        public void AssignImg(Texture2D[] imgs, CardDeck deck)
+        public CardDeck AssignImg(Texture2D[] imgs, CardDeck deck)
         {
             for (int i = 0; i < 52; i++)
             {
@@ -63,6 +62,8 @@ namespace Kortspel
 
             foreach (Card c in deck.GetDeck())
                 c.CreateBoundingBox(c.GetImg());
+
+            return deck;
         }
 
         //Attempt at removing cards that are given out from a deck, so that they cannot appear twice in the same round.

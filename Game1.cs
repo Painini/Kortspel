@@ -34,6 +34,7 @@ namespace Kortspel
         private int screen_height = 800;
         bool flag;
         int clicked;
+        int clearance;
 
         public Game1()
         {
@@ -68,6 +69,19 @@ namespace Kortspel
                 foreach (Button b in bettingButtons)
                 {
                     b.Draw(sb, font);
+                }
+            }
+
+            if (currentState == Gamestate.Gamestates.play)
+            {
+                foreach (Card c in player.GetCardsInHand())
+                {
+                    c.Draw(sb);
+                }
+
+                foreach (Card c in dealer.GetCardsInHand())
+                {
+                    c.Draw(sb);
                 }
             }
         }
@@ -183,8 +197,6 @@ namespace Kortspel
             textBgs = new List<TextBackground>();
             chips = new List<Chip>();
 
-            deckHandler.AssignImg(cardImgs, deck);
-
             textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 - whiteBg.Height), "Your Chips:" + player.GetChipAmount().ToString()));
             textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 + whiteBg.Height), "Bet Chips:" + blackjackHandler.GetBetChips().ToString()));
 
@@ -213,6 +225,12 @@ namespace Kortspel
             {
                 txt.Update(player, blackjackHandler);
             }
+
+            //foreach (Card c in deck.GetDeck())
+            //{
+            //    c.Update(deck.GetDeck());
+            //}
+            
 
             //BBH.CardHoverLogic(player);
 
@@ -270,28 +288,30 @@ namespace Kortspel
                 }
             }
 
-
-
             if (currentState == Gamestate.Gamestates.play)
             {
                 if (!flag)
                 {
+                    clearance = screen_width / 9;
+                    deck = deckHandler.AssignImg(cardImgs, deck);
                     blackjackHandler.RoundStart(deck, player, dealer, cardBack);
                     flag = true;
+
+                    //See why the hell sometimes it only shows 1 card for player
+                    foreach (Card c in player.GetCardsInHand())
+                    {
+                        c.SetPos(new Vector2(screen_width / 6 + clearance, screen_height / 4 * 3));
+                        clearance += screen_width / 9;
+                    }
+
+                    foreach (Card c in dealer.GetCardsInHand())
+                    {
+                        c.SetPos(new Vector2(screen_width / 3 + clearance, screen_height / 4));
+                        clearance += screen_width / 9;
+                    }
                 }
 
-                foreach (Card c in player.GetCardsInHand())
-                {
-                    c.Draw(sb);
-                }
                 
-                foreach (Card c in dealer.GetCardsInHand())
-                {
-                    c.Draw(sb);
-                }
-
-
-
 
             }
         

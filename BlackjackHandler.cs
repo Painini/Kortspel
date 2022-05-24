@@ -29,6 +29,7 @@ namespace Kortspel
 
         public void CalcDealerSum(Dealer dealer)
         {
+            
             foreach (Card c in dealer.GetCardsInHand())
                 dealerSum += c.ReturnCardValue();
         }
