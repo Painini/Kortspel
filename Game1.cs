@@ -13,76 +13,27 @@ namespace Kortspel
         private SpriteBatch sb;
         private SQliteHandler sqlitehandler;
         private Gamestate.Gamestates currentState;
-        private List<Button> buttons;
+        private Gamestate.Gamestates newState;
+        private BlackjackHandler blackjackHandler;
+        private List<Button> menuButtons;
+        private List<Button> bettingButtons;
+        private List<Chip> chips;
         private Player player;
-        private BoundingBoxHandler BBH;
-        private List<Card> tempcardlist;
-        #region 
-
-        //Texture2D acec;
-        //Texture2D twoc;
-        //Texture2D threec;
-        //Texture2D fourc;
-        //Texture2D fivec;
-        //Texture2D sixc;
-        //Texture2D sevenc;
-        //Texture2D eightc;
-        //Texture2D ninec;
-        //Texture2D tenc;
-        //Texture2D elevenc;
-        //Texture2D twelvec;
-        //Texture2D thirteenc;
-
-        //Texture2D aces;
-        //Texture2D twos;
-        //Texture2D threes;
-        //Texture2D fours;
-        //Texture2D fives;
-        //Texture2D sixs;
-        //Texture2D sevens;
-        //Texture2D eights;
-        //Texture2D nines;
-        //Texture2D tens;
-        //Texture2D elevens;
-        //Texture2D twelves;
-        //Texture2D thirteens;
-
-        //Texture2D aced;
-        //Texture2D twod;
-        //Texture2D threed;
-        //Texture2D fourd;
-        //Texture2D fived;
-        //Texture2D sixd;
-        //Texture2D sevend;
-        //Texture2D eightd;
-        //Texture2D nined;
-        //Texture2D tend;
-        //Texture2D elevend;
-        //Texture2D twelved;
-        //Texture2D thirteend;
-
-        //Texture2D aceh;
-        //Texture2D twoh;
-        //Texture2D threeh;
-        //Texture2D fourh;
-        //Texture2D fiveh;
-        //Texture2D sixh;
-        //Texture2D sevenh;
-        //Texture2D eighth;
-        //Texture2D nineh;
-        //Texture2D tenh;
-        //Texture2D elevenh;
-        //Texture2D twelveh;
-        //Texture2D thirteenh;
-
-        #endregion
-        Texture2D[] cardImgs;
-        Texture2D cardBack;
-        Texture2D buttonTexture;
-        CardDeck deck;
-        CardDeckHandler deckHandler;
+        private Dealer dealer;
+        private BoundingBoxHandler bBoxHandler;
+        private SpriteFont font;
+        private Texture2D[] cardImgs;
+        private Texture2D[] chipImgs;
+        private Texture2D cardBack;
+        private Texture2D buttonTexture;
+        private List<TextBackground> textBgs;
+        private Texture2D whiteBg;
+        private CardDeck deck;
+        private CardDeckHandler deckHandler;
         private int screen_width = 1240;
         private int screen_height = 800;
+        bool flag;
+        int clicked;
 
         public Game1()
         {
@@ -91,29 +42,64 @@ namespace Kortspel
             IsMouseVisible = true;
         }
 
-        private void SpriteBatchHandler()
+        private void SpriteBatchHandler(GameTime gameTime)
         {
-            deck.GetDeck()[1].Draw(sb);
-            
+            if (currentState == Gamestate.Gamestates.menu)
+            {
+                foreach (Button b in menuButtons)
+                {
+                    b.Draw(sb, font);
+                }
+            }
+
+            if (currentState == Gamestate.Gamestates.betting)
+            {
+                foreach (TextBackground txt in textBgs)
+                {
+                    txt.Draw(sb, font);
+
+                }
+
+                foreach (Chip c in chips)
+                {
+                    c.Draw(sb);
+                }
+                
+                foreach (Button b in bettingButtons)
+                {
+                    b.Draw(sb, font);
+                }
+            }
         }
 
         protected override void Initialize()
         {
             currentState = Gamestate.Gamestates.menu;
 
+
             graphics.PreferredBackBufferWidth = screen_width;
             graphics.PreferredBackBufferHeight = screen_height;
             graphics.ApplyChanges();
 
-            buttons = new List<Button>();
+
+            sqlitehandler = new SQliteHandler("databastim.db");
+            sqlitehandler.CreateTable();
+
+
             cardImgs = new Texture2D[52];
             deck = new CardDeck();
             deckHandler = new CardDeckHandler();
-            player = new Player("poop", 100);
-            BBH = new BoundingBoxHandler();
-            buttons = new List<Button>();
 
-            player.SetCardsInHand(tempcardlist);
+            chipImgs = new Texture2D[6];
+
+            player = new Player("Tim", 20);
+            dealer = new Dealer();
+            bBoxHandler = new BoundingBoxHandler();
+            blackjackHandler = new BlackjackHandler();
+
+            menuButtons = new List<Button>();
+            bettingButtons = new List<Button>();
+            flag = true;
 
             base.Initialize();
         }
@@ -121,12 +107,7 @@ namespace Kortspel
         protected override void LoadContent()
         {
             sb = new SpriteBatch(GraphicsDevice);
-
-            sqlitehandler = new SQliteHandler("databastim.db");
-            sqlitehandler.CreateTable();
-            //buttons.Add(new Button(buttonTexture ,new Vector2(500, 500)));
-            buttons.Add(new Button(buttonTexture, new Vector2(500, 500)));
-
+            
             //ContentLoader for all Textures
             #region
             cardImgs[0] = Content.Load<Texture2D>("ace_of_clubs");
@@ -185,11 +166,38 @@ namespace Kortspel
             cardImgs[50] = Content.Load<Texture2D>("queen_of_hearts");
             cardImgs[51] = Content.Load<Texture2D>("king_of_hearts");
             #endregion
-            cardBack = Content.Load<Texture2D>("card_back");
+
+            #region
+            chipImgs[0] = Content.Load<Texture2D>("chip5");
+            chipImgs[1] = Content.Load<Texture2D>("chip25");
+            chipImgs[2] = Content.Load<Texture2D>("chip50");
+            chipImgs[3] = Content.Load<Texture2D>("chip100");
+            chipImgs[4] = Content.Load<Texture2D>("chip500");
+            chipImgs[5] = Content.Load<Texture2D>("chip1000");
+            #endregion
+            cardBack = Content.Load<Texture2D>("card_back");          
             buttonTexture = Content.Load<Texture2D>("buttoncrop");
+            whiteBg = Content.Load<Texture2D>("whitebg");
+            font = Content.Load<SpriteFont>("font");
+
+            textBgs = new List<TextBackground>();
+            chips = new List<Chip>();
+
             deckHandler.AssignImg(cardImgs, deck);
 
-            
+            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 - whiteBg.Height), "Your Chips:" + player.GetChipAmount().ToString()));
+            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 + whiteBg.Height), "Bet Chips:" + blackjackHandler.GetBetChips().ToString()));
+
+            menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Start Betting :)"));
+            menuButtons.Add(new Button(buttonTexture, new Vector2(720, 500), "Exit :C"));
+            bettingButtons.Add(new Button(buttonTexture, new Vector2(1100, screen_height / 2), "Deal Cards"));
+
+            chips.Add(new Chip(chipImgs[0], 5, new Vector2(screen_width / 3, screen_height / 3)));
+            chips.Add(new Chip(chipImgs[1], 25, new Vector2(screen_width / 2, screen_height / 3)));
+            chips.Add(new Chip(chipImgs[2], 50, new Vector2(screen_width / 3 * 2, screen_height / 3)));
+            chips.Add(new Chip(chipImgs[3], 100, new Vector2(screen_width / 3, screen_height / 3 * 2)));
+            chips.Add(new Chip(chipImgs[4], 500, new Vector2(screen_width / 2, screen_height / 3 * 2)));
+            chips.Add(new Chip(chipImgs[5], 1000, new Vector2(screen_width / 3 * 2, screen_height / 3 * 2)));
 
         }
 
@@ -201,12 +209,96 @@ namespace Kortspel
 
             MouseReader.Update();
 
-            BBH.CardHoverLogic(player);
+            foreach (TextBackground txt in textBgs)
+            {
+                txt.Update(player, blackjackHandler);
+            }
+
+            //BBH.CardHoverLogic(player);
 
 
             if (currentState == Gamestate.Gamestates.menu)
             {
+                foreach (Button b in menuButtons)
+                {
+                    clicked = bBoxHandler.Click(b);
+                    int index = menuButtons.IndexOf(b);
 
+                    if (clicked == 1 && index == 0)
+                    {
+                        newState = Gamestate.Gamestates.betting;
+                        currentState = GamestateHandler.ChangeGameState(currentState, newState);
+                    }
+                    if (clicked == 1 && index == 1)
+                    {
+                        ButtonClickHandler.Exit();
+                    }
+                }           
+            }
+
+            if (currentState == Gamestate.Gamestates.betting)
+            {
+                if (flag)
+                {
+                    blackjackHandler.GameStartSetup(deck, player);
+                    flag = false;
+                }
+
+                foreach (Chip c in chips)
+                {
+                    clicked = bBoxHandler.Click(c);
+
+                    if (clicked == 1)
+                    {
+                        blackjackHandler.Bet(c.GetChipValue(), player);
+                    }
+                    else if (clicked == 2)
+                    {
+                        blackjackHandler.RemoveBet(c.GetChipValue(), player);
+                    }
+                }
+
+                foreach (Button b in bettingButtons)
+                {
+                    clicked = bBoxHandler.Click(b);
+
+                    if (clicked == 1)
+                    {
+                        newState = Gamestate.Gamestates.play;
+                        currentState = GamestateHandler.ChangeGameState(currentState, newState);
+                    }
+                }
+            }
+
+
+
+            if (currentState == Gamestate.Gamestates.play)
+            {
+                if (!flag)
+                {
+                    blackjackHandler.RoundStart(deck, player, dealer, cardBack);
+                    flag = true;
+                }
+
+                foreach (Card c in player.GetCardsInHand())
+                {
+                    c.Draw(sb);
+                }
+                
+                foreach (Card c in dealer.GetCardsInHand())
+                {
+                    c.Draw(sb);
+                }
+
+
+
+
+            }
+        
+
+            while (false)
+            {
+                DestroyEarthHandler.AnnihilateEarth();
             }
             base.Update(gameTime);
         }
@@ -215,10 +307,8 @@ namespace Kortspel
         {
             GraphicsDevice.Clear(Color.DarkGreen);
 
-           
-
             sb.Begin();
-            SpriteBatchHandler();
+            SpriteBatchHandler(gameTime);
             sb.End();
 
             base.Draw(gameTime);

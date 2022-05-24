@@ -15,10 +15,12 @@ namespace Kortspel
         protected Color color;
         protected Rectangle bb;
         protected float scale;
-
+        protected Vector2 originPoint;
+        protected Color imgColor;
 
         public Obj()   
         {
+
         }
 
         public virtual void Update()
@@ -26,12 +28,26 @@ namespace Kortspel
 
         }
 
+        public void SetScale(float scale)
+        {
+            this.scale = scale;
+        }
+        public Rectangle GetBoundingBox()
+        {
+            return bb;
+        }
+
+        public void SetOrigin(Texture2D img)
+        {
+            originPoint = new Vector2(img.Width / 2, img.Height / 2);
+        }
+
         public virtual void Draw(SpriteBatch sb)
         {
 
         }
 
-        public virtual void CreateRectangle(Texture2D img)
+        public virtual void CreateBoundingBox(Texture2D img)
         {
             bb = new Rectangle((int)pos.X, (int)pos.Y, img.Width, img.Height);
         }

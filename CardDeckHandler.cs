@@ -42,7 +42,7 @@ namespace Kortspel
                     cardsToGive.Add(deck.GetDeck()[randomNumber]);
                     deck.GetDeck()[randomNumber] = null;
                 }
-                catch (ArgumentNullException)
+                catch (NullReferenceException)
                 {
                     i--;
                 }
@@ -62,7 +62,7 @@ namespace Kortspel
             }
 
             foreach (Card c in deck.GetDeck())
-                c.CreateRectangle(c.GetImg());
+                c.CreateBoundingBox(c.GetImg());
         }
 
         //Attempt at removing cards that are given out from a deck, so that they cannot appear twice in the same round.

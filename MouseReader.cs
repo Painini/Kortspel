@@ -21,10 +21,10 @@ namespace Kortspel
 		}
 
 
-		//public static bool RightClick()
-		//{
-		//	return mouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released;
-		//}
+		public static bool RightClick()
+		{
+			return mouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released;
+		}
 
 
 		//Update is called in the main Update function in Game1.

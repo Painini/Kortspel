@@ -10,18 +10,20 @@ namespace Kortspel
     public class Button: Obj
     {
         bool isHovering;
-        Color imgColor;
         Color textColor;
         public string text;
 
 
         //Fortsätt här sen
-        public Button(Texture2D img, Vector2 pos):
+        public Button(Texture2D img, Vector2 pos, string text):
             base()
         {
             this.pos = pos;
             this.img = img;
-            //CreateRectangle(img);
+            this.text = text;
+            scale = 0.5f;
+            CreateBoundingBox(this.img);
+            SetOrigin(this.img);
         }
 
         public void SetButtColor(Color color)
@@ -59,24 +61,23 @@ namespace Kortspel
 
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch sb, SpriteFont font)
+        public void Draw(SpriteBatch sb, SpriteFont font)
         {
             imgColor = Color.White;
             textColor = Color.Black;
-
-            if (isHovering)
-            {
-                if (MouseReader.mouseState.LeftButton == ButtonState.Released && MouseReader.oldMouseState.LeftButton == ButtonState.Pressed)
-                {
-                    imgColor = Color.Gray;
-                }
+            //if (isHovering)
+            //{
+            //    if (MouseReader.mouseState.LeftButton == ButtonState.Released && MouseReader.oldMouseState.LeftButton == ButtonState.Pressed)
+            //    {
+            //        imgColor = Color.Gray;
+            //    }
                 
-            }
+            //}
+            
+            sb.Draw(img, pos, null, imgColor, 0.0f, originPoint, 0.3f, SpriteEffects.None, 0.0f);
 
-            sb.Draw(img, bb, imgColor);
-
-            float x = (bb.X + (bb.Width / 2)) - (font.MeasureString(text).X / 2);
-            float y = (bb.Y + (bb.Height / 2)) - (font.MeasureString(text).Y / 2);
+            float x = bb.X - (font.MeasureString(text).X / 2);
+            float y = bb.Y - (font.MeasureString(text).Y / 2);
 
             sb.DrawString(font, text, new Vector2(x, y), textColor);
         }

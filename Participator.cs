@@ -6,7 +6,7 @@ namespace Kortspel
 {
     public abstract class Participator
     {
-        public List<Card> cardsInHand;
+        List<Card> cardsInHand;
 
         public List<Card> GetCardsInHand()
         {

@@ -48,6 +48,13 @@
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/black_joker.png</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/buttoncrop.png</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/card_back.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip100.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip1000.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip25.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip5.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip50.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip500.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/font.spritefont</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/jack_of_clubs.png</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/jack_of_clubs2.png</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/jack_of_diamonds.png</File>
@@ -73,8 +80,17 @@
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/queen_of_spades.png</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/queen_of_spades2.png</File>
     <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/red_joker.png</File>
+    <File>C:/Users/lofst/source/repos/GitHub/Kortspel/Content/whitebg.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

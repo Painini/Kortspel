@@ -11,8 +11,7 @@ namespace Kortspel
         private int value;
         private string symbol;
         private bool flipped;
-        private Color imgColor;
-        private Vector2 originPoint;
+
 
         public Card(int value, string symbol, bool flipped):
             base ()
@@ -39,11 +38,6 @@ namespace Kortspel
             imgColor = color;
         }
 
-        public Rectangle GetBoundingBox()
-        {
-            return bb;
-        }
-
         public int ReturnCardValue()
         {
             if (!flipped)
@@ -52,10 +46,7 @@ namespace Kortspel
                 return 0;
         }
 
-        public void SetScale(float scale)
-        {
-            this.scale = scale;
-        }
+
 
         public void SetImg(Texture2D img)
         {
@@ -66,16 +57,14 @@ namespace Kortspel
             return img;
         }
 
-        public void SetOrigin(Texture2D img)
-        {
-            originPoint = new Vector2(img.Width / 2, img.Height / 2);
-        }
 
-        public void ChangeFlipStatus(Card card)
+
+        public void ChangeFlipStatus(Card card, Texture2D img)
         {
             if (card.flipped == true)
             {
                 flipped = false;
+                card.SetImg(img);
             }
             else
                 flipped = true;
@@ -95,11 +84,6 @@ namespace Kortspel
 
 
             sb.Draw(img, pos, null, imgColor, 0.0f, originPoint, scale, SpriteEffects.None, 0.0f);
-        }
-
-        public override void CreateRectangle(Texture2D img)
-        {
-            bb = new Rectangle((int)originPoint.X, (int)originPoint.Y, img.Width, img.Height);
         }
 
     }

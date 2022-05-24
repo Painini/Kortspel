@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
@@ -12,6 +14,16 @@ namespace Kortspel
         {
             this.name = name;
             this.chipAmount = chipAmount;
+        }
+
+        public int GetChipAmount()
+        {
+            return chipAmount;
+        }
+
+        public void SetChipAmount(int newChipAmount)
+        {
+            chipAmount = newChipAmount;
         }
 
     }

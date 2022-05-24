@@ -329,3 +329,11 @@ C:\Users\lofst\source\repos\GitHub\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.dll
 C:\Users\lofst\source\repos\GitHub\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.pdb
 C:\Users\lofst\source\repos\GitHub\Kortspel\obj\Debug\netcoreapp3.1\Kortspel.genruntimeconfig.cache
 C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\buttoncrop.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\font.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\whitebg.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip100.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip1000.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip25.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip5.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip50.xnb
+C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip500.xnb
