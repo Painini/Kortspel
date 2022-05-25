@@ -310,8 +310,8 @@ namespace Kortspel
 
                     textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString()));
                     textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString()));
-                    playButtons.Add(new Button(buttonTexture, new Vector2(700, screen_height / 2 + 150), "Hit"));
-                    playButtons.Add(new Button(buttonTexture, new Vector2(700, screen_height / 2 + 250), "Stand"));
+                    playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 150), "Hit"));
+                    playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 250), "Stand"));
 
                     //See why the hell sometimes it only shows 1 card for player IGNORE FOR NOW TRY TO DO BLACKJACK LOGIC FIRST
                     foreach (Card c in player.GetCardsInHand())
@@ -333,21 +333,34 @@ namespace Kortspel
                     clicked = bBoxHandler.Click(b);
 
                     int index = playButtons.IndexOf(b);
-
                     if (clicked == 1 && index == 0)
                     {
-                        blackjackHandler.PlayerHit(deck, player, dealer);
+                         bool result = blackjackHandler.PlayerHit(deck, player, dealer);
+
+                        if (result)
+                        {
+                            newState = Gamestate.Gamestates.result;
+                            GamestateHandler.ChangeGameState(currentState, newState);
+                        }
+
                     }
 
                     if (clicked == 1 && index == 1)
                     {
                         blackjackHandler.PlayerStand(deck, dealer, player, cardBack);
                     }
+
+
                 }
 
+                
 
             }
-        
+            
+            if (currentState == Gamestate.Gamestates.result)
+            {
+                blackjackHandler.ResultCalcAndChipExchange(player);
+            }
 
             while (false)
             {

@@ -23,9 +23,16 @@ namespace Kortspel
         }
         public int CalcPlayerSum(Player player)
         {
+            playerSum = 0;
             foreach (Card c in player.GetCardsInHand())
+            {
                 playerSum += c.ReturnCardValue();
+            }
+            return playerSum;
+        }
 
+        public int GetPlayerSum()
+        {
             return playerSum;
         }
 
@@ -86,16 +93,17 @@ namespace Kortspel
 
         }
 
-        public void PlayerHit(CardDeck deck, Player player, Dealer dealer)
+        public bool PlayerHit(CardDeck deck, Player player, Dealer dealer)
         {
-            player.SetCardsInHand(deckHandler.GiveCards(1, deck));
-            CalcPlayerSum(player);
+            player.AddCardsToHand(deckHandler.GiveCards(1, deck), player);
+            playerSum = CalcPlayerSum(player);
 
             if (playerSum > 21)
             {
-                ResultCalcAndChipExchange(player);
+                return true;
             }
-
+            else
+                return false;
         }
 
         public void PlayerStand (CardDeck deck, Dealer dealer, Player player, Texture2D img)
@@ -104,11 +112,11 @@ namespace Kortspel
 
             while (dealerSum < 17)
             {
-                dealer.SetCardsInHand(deckHandler.GiveCards(1, deck));
+                dealer.AddCardsToHand(deckHandler.GiveCards(1, deck), player);
             }
             ResultCalcAndChipExchange(player);
         }
-        public bool ResultCalcAndChipExchange(Player player)
+        public void ResultCalcAndChipExchange(Player player)
         {
             if (playerSum > dealerSum && playerSum <= 21)
             {
@@ -118,11 +126,6 @@ namespace Kortspel
                 if (currentChips > highestChips)
                     highestChips = currentChips;
                 player.SetChipAmount(currentChips);
-                return true;
-            }
-            else
-            {
-                return false;
             }
                 
         }

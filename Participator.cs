@@ -15,10 +15,15 @@ namespace Kortspel
 
         public void SetCardsInHand(List<Card> cards)
         {
-            cardsInHand = new List<Card>();
+
+            cardsInHand = cards;
+        }
+
+        public void AddCardsToHand(List<Card> cards, Player player)
+        {
             foreach (Card c in cards)
             {
-                cardsInHand.Add(c);
+                player.GetCardsInHand().Add(c);
             }
         }
 

@@ -35,6 +35,11 @@ namespace Kortspel
             {
                 text = "Bet Chips:" + blackjackHandler.GetBetChips().ToString();
             }
+
+            if (char.IsDigit(firstLetter))
+            {
+                text = blackjackHandler.GetPlayerSum().ToString();
+            }
         }
         public void Draw(SpriteBatch sb, SpriteFont font)
         {
