@@ -16,8 +16,10 @@ namespace Kortspel
         {
             card = dealer.GetCardsInHand()[dealer.GetCardsInHand().Count - 1];
             card.ChangeFlipStatus(card, img);
+            card.SetScale(0.3f);
             dealer.GetCardsInHand().RemoveAt(1);
             dealer.GetCardsInHand().Add(card);
+
         }
 
 

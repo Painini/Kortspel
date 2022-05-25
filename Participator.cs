@@ -15,7 +15,11 @@ namespace Kortspel
 
         public void SetCardsInHand(List<Card> cards)
         {
-            cardsInHand = cards;
+            cardsInHand = new List<Card>();
+            foreach (Card c in cards)
+            {
+                cardsInHand.Add(c);
+            }
         }
 
 

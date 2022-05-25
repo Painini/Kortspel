@@ -21,17 +21,21 @@ namespace Kortspel
         {
             return betChips;
         }
-        public void CalcPlayerSum(Player player)
+        public int CalcPlayerSum(Player player)
         {
             foreach (Card c in player.GetCardsInHand())
                 playerSum += c.ReturnCardValue();
+
+            return playerSum;
         }
 
-        public void CalcDealerSum(Dealer dealer)
+        public int CalcDealerSum(Dealer dealer)
         {
             
             foreach (Card c in dealer.GetCardsInHand())
                 dealerSum += c.ReturnCardValue();
+
+            return dealerSum;
         }
 
         public void CalcSums(Player player, Dealer dealer)
@@ -79,8 +83,7 @@ namespace Kortspel
             player.SetCardsInHand(deckHandler.GiveCards(2, deck));
             dealer.SetCardsInHand(deckHandler.GiveCards(2, deck));
             dealer.DealerFlip(dealer, img);
-             
-            CalcSums(player, dealer);
+
         }
 
         public void PlayerHit(CardDeck deck, Player player, Dealer dealer)

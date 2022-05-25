@@ -17,6 +17,7 @@ namespace Kortspel
         private BlackjackHandler blackjackHandler;
         private List<Button> menuButtons;
         private List<Button> bettingButtons;
+        private List<Button> playButtons;
         private List<Chip> chips;
         private Player player;
         private Dealer dealer;
@@ -83,6 +84,14 @@ namespace Kortspel
                 {
                     c.Draw(sb);
                 }
+
+                textBgs[2].Draw(sb, font);
+                textBgs[3].Draw(sb, font);
+
+                foreach (Button b in playButtons)
+                {
+                    b.Draw(sb, font);
+                }
             }
         }
 
@@ -113,6 +122,7 @@ namespace Kortspel
 
             menuButtons = new List<Button>();
             bettingButtons = new List<Button>();
+            playButtons = new List<Button>();
             flag = true;
 
             base.Initialize();
@@ -294,10 +304,16 @@ namespace Kortspel
                 {
                     clearance = screen_width / 9;
                     deck = deckHandler.AssignImg(cardImgs, deck);
+                    deckHandler.AssignValues(deck);
                     blackjackHandler.RoundStart(deck, player, dealer, cardBack);
                     flag = true;
 
-                    //See why the hell sometimes it only shows 1 card for player
+                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString()));
+                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString()));
+                    playButtons.Add(new Button(buttonTexture, new Vector2(700, screen_height / 2 + 150), "Hit"));
+                    playButtons.Add(new Button(buttonTexture, new Vector2(700, screen_height / 2 + 250), "Stand"));
+
+                    //See why the hell sometimes it only shows 1 card for player IGNORE FOR NOW TRY TO DO BLACKJACK LOGIC FIRST
                     foreach (Card c in player.GetCardsInHand())
                     {
                         c.SetPos(new Vector2(screen_width / 6 + clearance, screen_height / 4 * 3));
@@ -309,9 +325,26 @@ namespace Kortspel
                         c.SetPos(new Vector2(screen_width / 3 + clearance, screen_height / 4));
                         clearance += screen_width / 9;
                     }
+
                 }
 
-                
+                foreach (Button b in playButtons)
+                {
+                    clicked = bBoxHandler.Click(b);
+
+                    int index = playButtons.IndexOf(b);
+
+                    if (clicked == 1 && index == 0)
+                    {
+                        blackjackHandler.PlayerHit(deck, player, dealer);
+                    }
+
+                    if (clicked == 1 && index == 1)
+                    {
+                        blackjackHandler.PlayerStand(deck, dealer, player, cardBack);
+                    }
+                }
+
 
             }
         

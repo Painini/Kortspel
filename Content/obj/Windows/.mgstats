@@ -1,7 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip100.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/chip100.xnb","TextureProcessor","Texture2DContent",23679,64601,0,1040667
-"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip1000.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/chip1000.xnb","TextureProcessor","Texture2DContent",26846,65109,0,0082934
-"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip25.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/chip25.xnb","TextureProcessor","Texture2DContent",25838,64601,0,006156
-"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip5.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/chip5.xnb","TextureProcessor","Texture2DContent",25022,64601,0,0033383
-"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip50.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/chip50.xnb","TextureProcessor","Texture2DContent",25797,64601,0,0062248
-"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/chip500.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/chip500.xnb","TextureProcessor","Texture2DContent",25874,64601,0,0060526
+"C:/Users/lofst/source/repos/GitHub/Kortspel/Content/card_back.png","C:/Users/lofst/source/repos/GitHub/Kortspel/Content/bin/Windows/card_back.xnb","TextureProcessor","Texture2DContent",199305,1481125,0,3388749

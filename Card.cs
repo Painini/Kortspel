@@ -11,12 +11,12 @@ namespace Kortspel
         private int value;
         private string symbol;
         private bool flipped;
+        private Texture2D underImg;
 
 
-        public Card(int value, string symbol, bool flipped):
+        public Card(string symbol, bool flipped):
             base ()
         {
-            this.value = value;
             this.symbol = symbol;
             this.flipped = flipped;
             scale = 0.3f;    
@@ -40,13 +40,16 @@ namespace Kortspel
 
         public int ReturnCardValue()
         {
-            if (!flipped)
+            if (flipped)
                 return value;
             else
                 return 0;
         }
 
-
+        public void SetValue(int value)
+        {
+            this.value = value;
+        }
 
         public void SetImg(Texture2D img)
         {
@@ -64,10 +67,15 @@ namespace Kortspel
             if (card.flipped == true)
             {
                 flipped = false;
+                underImg = card.GetImg();
                 card.SetImg(img);
             }
             else
+            {
                 flipped = true;
+                card.SetImg(underImg);
+            }
+                
         }
 
         public void Update(Card[] cardArray)

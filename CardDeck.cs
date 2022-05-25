@@ -31,21 +31,22 @@ namespace Kortspel
 
         public CardDeck()
         {
+
             for (int i = 0; i < 12; i++)
             {
-                deck[i] = new Card(i, "hearts", true);
+                deck[i] = new Card("hearts", true);
             }
             for (int i = 12; i < 25; i++)
             {
-                deck[i] = new Card(i, "diamonds", true);
+                deck[i] = new Card("diamonds", true);
             }
             for (int i = 25; i < 38; i++)
             {
-                deck[i] = new Card(i, "spades", true);
+                deck[i] = new Card("spades", true);
             }
             for (int i = 38; i < 52; i++)
             {
-                deck[i] = new Card(i, "clubs", true);
+                deck[i] = new Card("clubs", true);
             }
         }
 
@@ -76,6 +77,6 @@ namespace Kortspel
         //    {
         //        deck[i] = new Card(i, "clubs", "black");
         //    }
-       // }
+        // }
     }
 }

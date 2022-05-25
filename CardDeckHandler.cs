@@ -66,6 +66,65 @@ namespace Kortspel
             return deck;
         }
 
+        public void AssignValues(CardDeck deck)
+        {
+            deck.GetDeck()[0].SetValue(1);
+            deck.GetDeck()[1].SetValue(2);
+            deck.GetDeck()[2].SetValue(3);
+            deck.GetDeck()[3].SetValue(4);
+            deck.GetDeck()[4].SetValue(5);
+            deck.GetDeck()[5].SetValue(6);
+            deck.GetDeck()[6].SetValue(7);
+            deck.GetDeck()[7].SetValue(8);
+            deck.GetDeck()[8].SetValue(9);
+            deck.GetDeck()[9].SetValue(10);
+            deck.GetDeck()[10].SetValue(10);
+            deck.GetDeck()[11].SetValue(10);
+            deck.GetDeck()[12].SetValue(10);
+
+            deck.GetDeck()[13].SetValue(1);
+            deck.GetDeck()[14].SetValue(2);
+            deck.GetDeck()[15].SetValue(3);
+            deck.GetDeck()[16].SetValue(4);
+            deck.GetDeck()[17].SetValue(5);
+            deck.GetDeck()[18].SetValue(6);
+            deck.GetDeck()[19].SetValue(7);
+            deck.GetDeck()[20].SetValue(8);
+            deck.GetDeck()[21].SetValue(9);
+            deck.GetDeck()[22].SetValue(10);
+            deck.GetDeck()[23].SetValue(10);
+            deck.GetDeck()[24].SetValue(10);
+            deck.GetDeck()[25].SetValue(10);
+
+            deck.GetDeck()[26].SetValue(1);
+            deck.GetDeck()[27].SetValue(2);
+            deck.GetDeck()[28].SetValue(3);
+            deck.GetDeck()[29].SetValue(4);
+            deck.GetDeck()[30].SetValue(5);
+            deck.GetDeck()[31].SetValue(6);
+            deck.GetDeck()[32].SetValue(7);
+            deck.GetDeck()[33].SetValue(8);
+            deck.GetDeck()[34].SetValue(9);
+            deck.GetDeck()[35].SetValue(10);
+            deck.GetDeck()[36].SetValue(10);
+            deck.GetDeck()[37].SetValue(10);
+            deck.GetDeck()[38].SetValue(10);
+
+            deck.GetDeck()[39].SetValue(1);
+            deck.GetDeck()[40].SetValue(2);
+            deck.GetDeck()[41].SetValue(3);
+            deck.GetDeck()[42].SetValue(4);
+            deck.GetDeck()[43].SetValue(5);
+            deck.GetDeck()[44].SetValue(6);
+            deck.GetDeck()[45].SetValue(7);
+            deck.GetDeck()[46].SetValue(8);
+            deck.GetDeck()[47].SetValue(9);
+            deck.GetDeck()[48].SetValue(10);
+            deck.GetDeck()[49].SetValue(10);
+            deck.GetDeck()[50].SetValue(10);
+            deck.GetDeck()[51].SetValue(10);
+        }
+
         //Attempt at removing cards that are given out from a deck, so that they cannot appear twice in the same round.
 
         //public CardDeck RemoveCardsFromDeck(List<Card> cardsToRemove, CardDeck deck)
