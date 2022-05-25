@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
+    //TextBackground class handles different textoutputs in the game. These objects are always given the whiteBg Texture through the content pipeline and are used for texts
     internal class TextBackground : Obj
     {
         Color textColor;

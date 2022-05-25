@@ -337,3 +337,12 @@ C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip
 C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip5.xnb
 C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip50.xnb
 C:\Users\lofst\source\repos\GitHub\Kortspel\bin\Debug\netcoreapp3.1\Content\chip500.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\buttoncrop.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\chip100.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\chip1000.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\chip25.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\chip5.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\chip50.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\chip500.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\font.xnb
+C:\Users\INF\source\repos\Kortspel\Kortspel\bin\Debug\netcoreapp3.1\Content\whitebg.xnb

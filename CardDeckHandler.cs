@@ -8,6 +8,8 @@ namespace Kortspel
 {
     public class CardDeckHandler
     {
+
+        //CardDeckHandler class includes methods that change objects made from the CardDeck class
         Random random = new Random();
         List<Card> cardsToGive;
 

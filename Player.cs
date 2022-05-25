@@ -8,6 +8,7 @@ namespace Kortspel
 {
     public class Player : Participator
     {
+        //Player class is meant to hold the cards that blackjackhandler uses to compute different results.
         string name;
         int chipAmount;
         public Player (string name, int chipAmount)

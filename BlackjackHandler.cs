@@ -8,7 +8,7 @@ namespace Kortspel
 {
     public class BlackjackHandler
     {
-
+        //BlackjackHandler Class includes variables and methods relevant to performing the logic of the blackjack game.
         int startingChips;
         int betChips;
         int highestChips;
@@ -112,6 +112,7 @@ namespace Kortspel
 
             while (dealerSum < 17)
             {
+                //dealerSum never updates
                 dealer.AddCardsToHand(deckHandler.GiveCards(1, deck), player);
             }
             ResultCalcAndChipExchange(player);

@@ -7439,19 +7439,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lofst\\.nuget\\packages\\": {}
+    "C:\\Users\\INF\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\Kortspel.csproj",
+      "projectUniqueName": "C:\\Users\\INF\\source\\repos\\Kortspel\\Kortspel\\Kortspel.csproj",
       "projectName": "Kortspel",
-      "projectPath": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\Kortspel.csproj",
-      "packagesPath": "C:\\Users\\lofst\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lofst\\source\\repos\\GitHub\\Kortspel\\obj\\",
+      "projectPath": "C:\\Users\\INF\\source\\repos\\Kortspel\\Kortspel\\Kortspel.csproj",
+      "packagesPath": "C:\\Users\\INF\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\INF\\source\\repos\\Kortspel\\Kortspel\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\lofst\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\INF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7508,7 +7513,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Kortspel
 {
+    //The button class inherits from the OBJ class and creates buttons that are drawn. With the help of the BoundingBoxHelper class buttons are interactive.
     public class Button: Obj
     {
         bool isHovering;

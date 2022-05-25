@@ -6,6 +6,8 @@ namespace Kortspel
 {
     public abstract class Participator
     {
+
+        //Participator class is the base class for both Dealer and Player. They inherit the methods and cardsInHand list to save coding space.
         List<Card> cardsInHand;
 
         public List<Card> GetCardsInHand()

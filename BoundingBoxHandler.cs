@@ -8,7 +8,7 @@ namespace Kortspel
 {
     internal class BoundingBoxHandler
     {
-
+        //BoundingBoxHandler class includes methods with logic for Rectangles that envelop objects, making them interactable.
         public void CardHoverLogic(Player player)
         {
                 for (int i = 0; i < player.GetCardsInHand().Count; i++)

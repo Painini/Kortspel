@@ -351,9 +351,7 @@ namespace Kortspel
                     }
 
 
-                }
-
-                
+                } 
 
             }
             
@@ -362,6 +360,8 @@ namespace Kortspel
                 blackjackHandler.ResultCalcAndChipExchange(player);
             }
 
+
+            //Dont set it to true. Otherwise you will NOT live to regret it. >:)
             while (false)
             {
                 DestroyEarthHandler.AnnihilateEarth();

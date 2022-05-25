@@ -10,6 +10,8 @@ namespace Kortspel
     class SQliteHandler
     {
 
+        //SQliteHandler class has methods and variables that would let the program connect with, write to and read from a local SQL database
+
         string? _db_name;
         string _cs;
         SQLiteConnection _connection;
