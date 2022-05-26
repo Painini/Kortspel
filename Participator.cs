@@ -19,11 +19,11 @@ namespace Kortspel
             cardsInHand = cards;
         }
 
-        public void AddCardsToHand(List<Card> cards, Player player)
+        public void AddCardsToHand(List<Card> cards, Participator participator)
         {
             foreach (Card c in cards)
             {
-                player.GetCardsInHand().Add(c);
+                participator.GetCardsInHand().Add(c);
             }
         }
 

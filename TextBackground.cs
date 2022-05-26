@@ -10,13 +10,15 @@ namespace Kortspel
     {
         Color textColor;
         public string text;
+        bool playerText;
 
-        public TextBackground(Texture2D img, Vector2 pos, string text):
+        public TextBackground(Texture2D img, Vector2 pos, string text, bool playerText):
            base()
         {
             this.pos = pos;
             this.img = img;
             this.text = text;
+            this.playerText = playerText;
             scale = 0.5f;
             CreateBoundingBox(this.img);
             SetOrigin(this.img);
@@ -35,10 +37,14 @@ namespace Kortspel
             {
                 text = "Bet Chips:" + blackjackHandler.GetBetChips().ToString();
             }
-
-            if (char.IsDigit(firstLetter))
+            //Make backgrounds displaying chip sums differ from player to dealer - Done
+            if (char.IsDigit(firstLetter) && playerText)
             {
                 text = blackjackHandler.GetPlayerSum().ToString();
+            }
+            if (char.IsDigit(firstLetter) && !playerText)
+            {
+                text = blackjackHandler.GetDealerSum().ToString();
             }
         }
         public void Draw(SpriteBatch sb, SpriteFont font)

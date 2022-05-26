@@ -31,19 +31,26 @@ namespace Kortspel
             return playerSum;
         }
 
-        public int GetPlayerSum()
-        {
-            return playerSum;
-        }
-
         public int CalcDealerSum(Dealer dealer)
         {
-            
+
             foreach (Card c in dealer.GetCardsInHand())
                 dealerSum += c.ReturnCardValue();
 
             return dealerSum;
         }
+
+        public int GetPlayerSum()
+        {
+            return playerSum;
+        }
+
+        public int GetDealerSum()
+        {
+            return dealerSum;
+        }
+
+        
 
         public void CalcSums(Player player, Dealer dealer)
         {
@@ -106,15 +113,23 @@ namespace Kortspel
                 return false;
         }
 
-        public void PlayerStand (CardDeck deck, Dealer dealer, Player player, Texture2D img)
+
+        //Fix PlayerStand method being caught in endless loop
+        public bool PlayerStand (CardDeck deck, Dealer dealer, Player player, Texture2D img)
         {
             dealer.DealerFlip(dealer, img);
 
             while (dealerSum < 17)
             {
-                dealer.AddCardsToHand(deckHandler.GiveCards(1, deck), player);
+                dealer.AddCardsToHand(deckHandler.GiveCards(1, deck), dealer);
+                CalcDealerSum(dealer);
             }
-            ResultCalcAndChipExchange(player);
+            if (dealerSum > 21)
+            {
+                return true;
+            }
+            else
+                return false;
         }
         public void ResultCalcAndChipExchange(Player player)
         {

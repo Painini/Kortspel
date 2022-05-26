@@ -207,8 +207,8 @@ namespace Kortspel
             textBgs = new List<TextBackground>();
             chips = new List<Chip>();
 
-            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 - whiteBg.Height), "Your Chips:" + player.GetChipAmount().ToString()));
-            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 + whiteBg.Height), "Bet Chips:" + blackjackHandler.GetBetChips().ToString()));
+            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 - whiteBg.Height), "Your Chips:" + player.GetChipAmount().ToString(), false));
+            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 + whiteBg.Height), "Bet Chips:" + blackjackHandler.GetBetChips().ToString(), false));
 
             menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Start Betting :)"));
             menuButtons.Add(new Button(buttonTexture, new Vector2(720, 500), "Exit :C"));
@@ -307,9 +307,9 @@ namespace Kortspel
                     deckHandler.AssignValues(deck);
                     blackjackHandler.RoundStart(deck, player, dealer, cardBack);
                     flag = true;
-
-                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString()));
-                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString()));
+                    
+                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString(), true));
+                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString(), false));
                     playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 150), "Hit"));
                     playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 250), "Stand"));
 
@@ -340,7 +340,7 @@ namespace Kortspel
                         if (result)
                         {
                             newState = Gamestate.Gamestates.result;
-                            GamestateHandler.ChangeGameState(currentState, newState);
+                            currentState = GamestateHandler.ChangeGameState(currentState, newState);
                         }
 
                     }
@@ -349,12 +349,7 @@ namespace Kortspel
                     {
                         blackjackHandler.PlayerStand(deck, dealer, player, cardBack);
                     }
-
-
                 }
-
-                
-
             }
             
             if (currentState == Gamestate.Gamestates.result)
