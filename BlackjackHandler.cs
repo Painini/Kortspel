@@ -15,6 +15,7 @@ namespace Kortspel
         int currentChips;
         int playerSum;
         int dealerSum;
+        int previousChipAmount = 1500;
         CardDeckHandler deckHandler;
         List<Card> listToTakeFrom;
 
@@ -77,22 +78,20 @@ namespace Kortspel
             deckHandler = new CardDeckHandler();
             deckHandler.shuffleDeck(deck);
             currentChips = player.GetChipAmount();
-            startingChips = 1500;
+            startingChips = previousChipAmount;
             if (player.GetChipAmount() < startingChips)
                 player.SetChipAmount(startingChips);
         }
 
         public void Bet(int betChips, Player player)
-        {
-            
+        {            
             currentChips = player.GetChipAmount();
             this.betChips += betChips;            
             currentChips -= betChips;
             if (currentChips >= 0)
                 player.SetChipAmount(currentChips);
             else
-                this.betChips -= betChips;
-            
+                this.betChips -= betChips;            
         }
 
         public void RemoveBet(int betChips, Player player)
@@ -100,7 +99,10 @@ namespace Kortspel
             currentChips = player.GetChipAmount();
             this.betChips -= betChips;
             currentChips += betChips;
-            if (currentChips <= startingChips)
+
+
+
+            if (currentChips <= previousChipAmount)
                 player.SetChipAmount(currentChips);
             else
                 this.betChips += betChips;
@@ -116,24 +118,24 @@ namespace Kortspel
 
         }
 
-        public bool PlayerHit(CardDeck deck, Player player, Dealer dealer)
+        public bool PlayerHit(Player player)
         {
             player.AddCardsToHand(deckHandler.GiveCards(1, listToTakeFrom), player);
             playerSum = CalcPlayerSum(player);
 
-            if (playerSum > 21)
+            if (ResultChipExchange(player))
             {
-                return true;
+                return false;
             }
             else
-                return false;
+                return true;
         }
 
 
         //Fix PlayerStand method being caught in endless loop - Fixed
         //Fix PlayerStand giving a card to Player !!! / Card gets added to player before PlayerStand is called. Issue must be in Game1.
         //PlayerStand needed to call "CalcDealerSum" after flipping the card. CalcDealerSum also needed to reset dealerSum before doing calculations.
-        public bool PlayerStand(Dealer dealer, Texture2D img)
+        public bool PlayerStand(Dealer dealer, Texture2D img, Player player)
         {
             dealer.DealerFlip(dealer, img);
             CalcDealerSum(dealer);
@@ -143,24 +145,37 @@ namespace Kortspel
                 dealer.AddCardsToHand(deckHandler.GiveCards(1, listToTakeFrom), dealer);
                 CalcDealerSum(dealer);
             }
-            if (dealerSum > 21)
+            if (ResultChipExchange(player))
             {
                 return true;
             }
             else
                 return false;
         }
-        public void ResultChipExchange(Player player)
+        //Betchips does not set itself to zero.
+        public bool ResultChipExchange(Player player)
         {
-            if (playerSum > dealerSum && playerSum <= 21)
+            if ((playerSum > dealerSum && playerSum <= 21) || dealerSum > 21)
             {
                 currentChips += betChips;
                 int wonChips = betChips * 15 / 10;
                 currentChips += wonChips;
+                previousChipAmount = currentChips;
                 if (currentChips > highestChips)
                     highestChips = currentChips;
                 player.SetChipAmount(currentChips);
-            }     
+                betChips = 0;
+                return true;
+                
+
+            }
+            else
+            {
+                betChips = 0;
+                return false;
+            }
+                
+            
         }
     }
 }

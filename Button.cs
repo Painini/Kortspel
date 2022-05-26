@@ -21,9 +21,8 @@ namespace Kortspel
             this.pos = pos;
             this.img = img;
             this.text = text;
-            scale = 0.5f;
-            CreateBoundingBox(this.img);
-            SetOrigin(this.img);
+            scale = 1f;
+            CreateBoundingBox();
         }
 
         public void SetButtColor(Color color)
@@ -61,6 +60,21 @@ namespace Kortspel
 
         }
 
+        public void SetOrigin(int width, int height)
+        {
+            originPoint = new Vector2(width / 2, height / 2);
+        }
+
+        public void CreateBoundingBox()
+        {
+            int width = 200;
+            int height = 100;
+            bb = new Rectangle((int)pos.X, (int)pos.Y, width, height);
+
+            SetOrigin(width, height);
+
+        }
+
         public void Draw(SpriteBatch sb, SpriteFont font)
         {
             imgColor = Color.White;
@@ -70,14 +84,13 @@ namespace Kortspel
             //    if (MouseReader.mouseState.LeftButton == ButtonState.Released && MouseReader.oldMouseState.LeftButton == ButtonState.Pressed)
             //    {
             //        imgColor = Color.Gray;
-            //    }
-                
+            //    }                
             //}
             
-            sb.Draw(img, pos, null, imgColor, 0.0f, originPoint, 0.3f, SpriteEffects.None, 0.0f);
+            sb.Draw(img, bb, null, imgColor, 0.0f, originPoint, SpriteEffects.None, 0.0f);
 
-            float x = bb.X - (font.MeasureString(text).X / 2);
-            float y = bb.Y - (font.MeasureString(text).Y / 2);
+            float x = bb.X + 60 - (font.MeasureString(text).X / 2);
+            float y = bb.Y + 30 - (font.MeasureString(text).Y / 2);
 
             sb.DrawString(font, text, new Vector2(x, y), textColor);
         }

@@ -50,6 +50,6 @@ namespace Kortspel
         {
             bb = new Rectangle((int)pos.X, (int)pos.Y, img.Width, img.Height);
         }
-
+        
     }
 }

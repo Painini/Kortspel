@@ -80,7 +80,7 @@ namespace Kortspel
             bettingButtons = new List<Button>();
             playButtons = new List<Button>();
             resultButtons = new List<Button>();
-            flag = true;
+            flag = false;
 
             base.Initialize();
         }
@@ -175,6 +175,8 @@ namespace Kortspel
             menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Start Betting :)"));
             menuButtons.Add(new Button(buttonTexture, new Vector2(720, 500), "Exit :C"));
 
+            resultButtons.Add(new Button(buttonTexture, new Vector2(1000, 300), "Back to Menu"));
+
             bettingButtons.Add(new Button(buttonTexture, new Vector2(1100, screen_height / 2), "Deal Cards"));
 
             chips.Add(new Chip(chipImgs[0], 5, new Vector2(screen_width / 3, screen_height / 3)));
@@ -226,14 +228,20 @@ namespace Kortspel
                     }
                     if (clicked == 1 && index == 1)
                     {
-                        ButtonClickHandler.Exit();
+                        Exit();
                     }
                 }
             }
 
             if (currentState == Gamestate.Gamestates.betting)
             {
-                blackjackHandler.GameStartSetup(deck, player);
+
+                if (!flag)
+                {
+                    blackjackHandler.GameStartSetup(deck, player);
+                    flag = true;
+                }
+                
 
                 foreach (Chip c in chips)
                 {
@@ -282,28 +290,28 @@ namespace Kortspel
 
                 foreach (Button b in playButtons)
                 {
-                    //When you get back, continue working on making the logic of PlayerHit and PlayerStand 
                     clicked = bBoxHandler.Click(b);
                     result = false;
                     int index = playButtons.IndexOf(b);
                     if (clicked == 1 && index == 0)
                     {
-                        result = blackjackHandler.PlayerHit(deck, player, dealer);
+                        result = blackjackHandler.PlayerHit(player);
                         if (blackjackHandler.GetPlayerSum() > 21)
                         {
                             newState = Gamestate.Gamestates.result;
                             currentState = GamestateHandler.ChangeGameState(currentState, newState);
                         }
                     }
-                    else if (clicked == 1 && index == 1)
+                    //Somehow, as soon as the conditions for the below if-statement are true, a card is placed into the player's hand. Will try calling click on each button separately. Did not work.
+                    if (clicked == 1 && index == 1)
                     {
-                        result = blackjackHandler.PlayerStand(dealer, cardBack);
+                        result = blackjackHandler.PlayerStand(dealer, cardBack, player);
                         newState = Gamestate.Gamestates.result;
                         currentState = GamestateHandler.ChangeGameState(currentState, newState);
-                    }
-
-                    
                         
+                    }
+                    UpdateCardPos();
+
                 }
             }
 
@@ -314,9 +322,6 @@ namespace Kortspel
 
             if (currentState == Gamestate.Gamestates.result)
             {
-                blackjackHandler.ResultChipExchange(player);
-                UpdateCardPos();
-
                 if (result)
                 {
                     resultTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2, screen_height / 2), "You Win!", false));
@@ -325,6 +330,18 @@ namespace Kortspel
                 {
                     resultTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2, screen_height / 2), "You Lose!", false));
                 }
+
+                foreach (Button b in resultButtons)
+                {
+                    clicked = bBoxHandler.Click(b);
+                    if (clicked == 1)
+                    {
+                        newState = Gamestate.Gamestates.menu;
+                        currentState = GamestateHandler.ChangeGameState(currentState, newState);
+                    }
+                }
+
+                
                 
 
             }
@@ -448,6 +465,11 @@ namespace Kortspel
                 foreach (TextWindow text in resultTexts)
                 {
                     text.Draw(sb, font);
+                }
+
+                foreach (Button b in resultButtons)
+                {
+                    b.Draw(sb, font);
                 }
             }
         }
