@@ -18,6 +18,7 @@ namespace Kortspel
         private List<Button> menuButtons;
         private List<Button> bettingButtons;
         private List<Button> playButtons;
+        private List<Button> resultButtons;
         private List<Chip> chips;
         private Player player;
         private Dealer dealer;
@@ -27,15 +28,19 @@ namespace Kortspel
         private Texture2D[] chipImgs;
         private Texture2D cardBack;
         private Texture2D buttonTexture;
-        private List<TextBackground> textBgs;
+        private List<TextWindow> bettingTexts;
+        private List<TextWindow> playTexts;
+        private List<TextWindow> resultTexts;
         private Texture2D whiteBg;
         private CardDeck deck;
         private CardDeckHandler deckHandler;
         private int screen_width = 1240;
         private int screen_height = 800;
         bool flag;
+        bool result;
         int clicked;
         int clearance;
+        int cardAmountChecker;
 
         public Game1()
         {
@@ -44,56 +49,7 @@ namespace Kortspel
             IsMouseVisible = true;
         }
 
-        private void SpriteBatchHandler(GameTime gameTime)
-        {
-            if (currentState == Gamestate.Gamestates.menu)
-            {
-                foreach (Button b in menuButtons)
-                {
-                    b.Draw(sb, font);
-                }
-            }
 
-            if (currentState == Gamestate.Gamestates.betting)
-            {
-                foreach (TextBackground txt in textBgs)
-                {
-                    txt.Draw(sb, font);
-
-                }
-
-                foreach (Chip c in chips)
-                {
-                    c.Draw(sb);
-                }
-                
-                foreach (Button b in bettingButtons)
-                {
-                    b.Draw(sb, font);
-                }
-            }
-
-            if (currentState == Gamestate.Gamestates.play)
-            {
-                foreach (Card c in player.GetCardsInHand())
-                {
-                    c.Draw(sb);
-                }
-
-                foreach (Card c in dealer.GetCardsInHand())
-                {
-                    c.Draw(sb);
-                }
-
-                textBgs[2].Draw(sb, font);
-                textBgs[3].Draw(sb, font);
-
-                foreach (Button b in playButtons)
-                {
-                    b.Draw(sb, font);
-                }
-            }
-        }
 
         protected override void Initialize()
         {
@@ -123,6 +79,7 @@ namespace Kortspel
             menuButtons = new List<Button>();
             bettingButtons = new List<Button>();
             playButtons = new List<Button>();
+            resultButtons = new List<Button>();
             flag = true;
 
             base.Initialize();
@@ -131,7 +88,7 @@ namespace Kortspel
         protected override void LoadContent()
         {
             sb = new SpriteBatch(GraphicsDevice);
-            
+
             //ContentLoader for all Textures
             #region
             cardImgs[0] = Content.Load<Texture2D>("ace_of_clubs");
@@ -199,19 +156,25 @@ namespace Kortspel
             chipImgs[4] = Content.Load<Texture2D>("chip500");
             chipImgs[5] = Content.Load<Texture2D>("chip1000");
             #endregion
-            cardBack = Content.Load<Texture2D>("card_back");          
+            cardBack = Content.Load<Texture2D>("card_back");
             buttonTexture = Content.Load<Texture2D>("buttoncrop");
             whiteBg = Content.Load<Texture2D>("whitebg");
             font = Content.Load<SpriteFont>("font");
 
-            textBgs = new List<TextBackground>();
+            bettingTexts = new List<TextWindow>();
+            playTexts = new List<TextWindow>();
+            resultTexts = new List<TextWindow>();
             chips = new List<Chip>();
 
-            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 - whiteBg.Height), "Your Chips:" + player.GetChipAmount().ToString(), false));
-            textBgs.Add(new TextBackground(whiteBg, new Vector2(150, screen_height / 2 + whiteBg.Height), "Bet Chips:" + blackjackHandler.GetBetChips().ToString(), false));
+            bettingTexts.Add(new TextWindow(whiteBg, new Vector2(150, screen_height / 2 - whiteBg.Height), "Your Chips:" + player.GetChipAmount().ToString(), false));
+            bettingTexts.Add(new TextWindow(whiteBg, new Vector2(150, screen_height / 2 + whiteBg.Height), "Bet Chips:" + blackjackHandler.GetBetChips().ToString(), false));
+
+            playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 150), "Hit"));
+            playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 250), "Stand"));
 
             menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Start Betting :)"));
             menuButtons.Add(new Button(buttonTexture, new Vector2(720, 500), "Exit :C"));
+
             bettingButtons.Add(new Button(buttonTexture, new Vector2(1100, screen_height / 2), "Deal Cards"));
 
             chips.Add(new Chip(chipImgs[0], 5, new Vector2(screen_width / 3, screen_height / 3)));
@@ -231,7 +194,11 @@ namespace Kortspel
 
             MouseReader.Update();
 
-            foreach (TextBackground txt in textBgs)
+            foreach (TextWindow txt in bettingTexts)
+            {
+                txt.Update(player, blackjackHandler);
+            }
+            foreach (TextWindow txt in playTexts)
             {
                 txt.Update(player, blackjackHandler);
             }
@@ -240,7 +207,7 @@ namespace Kortspel
             //{
             //    c.Update(deck.GetDeck());
             //}
-            
+
 
             //BBH.CardHoverLogic(player);
 
@@ -261,16 +228,12 @@ namespace Kortspel
                     {
                         ButtonClickHandler.Exit();
                     }
-                }           
+                }
             }
 
             if (currentState == Gamestate.Gamestates.betting)
             {
-                if (flag)
-                {
-                    blackjackHandler.GameStartSetup(deck, player);
-                    flag = false;
-                }
+                blackjackHandler.GameStartSetup(deck, player);
 
                 foreach (Chip c in chips)
                 {
@@ -300,63 +263,74 @@ namespace Kortspel
 
             if (currentState == Gamestate.Gamestates.play)
             {
-                if (!flag)
+                if (flag)
                 {
                     clearance = screen_width / 9;
                     deck = deckHandler.AssignImg(cardImgs, deck);
+                    blackjackHandler.FillListWithDeck(deck);
                     deckHandler.AssignValues(deck);
                     blackjackHandler.RoundStart(deck, player, dealer, cardBack);
-                    flag = true;
-                    
-                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString(), true));
-                    textBgs.Add(new TextBackground(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString(), false));
-                    playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 150), "Hit"));
-                    playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 250), "Stand"));
+                    flag = false;
+
+                    playTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString(), true));
+                    playTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString(), false));
 
                     //See why the hell sometimes it only shows 1 card for player IGNORE FOR NOW TRY TO DO BLACKJACK LOGIC FIRST
-                    foreach (Card c in player.GetCardsInHand())
-                    {
-                        c.SetPos(new Vector2(screen_width / 6 + clearance, screen_height / 4 * 3));
-                        clearance += screen_width / 9;
-                    }
-
-                    foreach (Card c in dealer.GetCardsInHand())
-                    {
-                        c.SetPos(new Vector2(screen_width / 3 + clearance, screen_height / 4));
-                        clearance += screen_width / 9;
-                    }
-
                 }
+
+                UpdateCardPos();
 
                 foreach (Button b in playButtons)
                 {
+                    //When you get back, continue working on making the logic of PlayerHit and PlayerStand 
                     clicked = bBoxHandler.Click(b);
-
+                    result = false;
                     int index = playButtons.IndexOf(b);
                     if (clicked == 1 && index == 0)
                     {
-                         bool result = blackjackHandler.PlayerHit(deck, player, dealer);
-
-                        if (result)
+                        result = blackjackHandler.PlayerHit(deck, player, dealer);
+                        if (blackjackHandler.GetPlayerSum() > 21)
                         {
                             newState = Gamestate.Gamestates.result;
                             currentState = GamestateHandler.ChangeGameState(currentState, newState);
                         }
-
                     }
-
-                    if (clicked == 1 && index == 1)
+                    else if (clicked == 1 && index == 1)
                     {
-                        blackjackHandler.PlayerStand(deck, dealer, player, cardBack);
+                        result = blackjackHandler.PlayerStand(deck, dealer, player, cardBack);
+                        newState = Gamestate.Gamestates.result;
+                        currentState = GamestateHandler.ChangeGameState(currentState, newState);
                     }
+
+                    
+                        
                 }
             }
-            
+
+            //Result will now Update card Pos itself, so that any cards added during the "play" state's last Update cycle are shown correctly.
+            //Sometimes cards will stop being drawn on screen.
+            //It also seems like the game will sometimes take cards from the dealer's hand and put it in the player's hand, will check it out.
+            //For now I will try to make Result work.
+
             if (currentState == Gamestate.Gamestates.result)
             {
-                blackjackHandler.ResultCalcAndChipExchange(player);
+                blackjackHandler.ResultChipExchange(player);
+                UpdateCardPos();
+
+                if (result)
+                {
+                    resultTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2, screen_height / 2), "You Win!", false));
+                }
+                else if (!result)
+                {
+                    resultTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2, screen_height / 2), "You Lose!", false));
+                }
+                
+
             }
 
+
+            //Do NOT set to true!
             while (false)
             {
                 DestroyEarthHandler.AnnihilateEarth();
@@ -375,5 +349,106 @@ namespace Kortspel
             base.Draw(gameTime);
         }
 
+        private void CardDrawHandler()
+        {
+            foreach (Card c in player.GetCardsInHand())
+            {
+                c.Draw(sb);
+            }
+
+            foreach (Card c in dealer.GetCardsInHand())
+            {
+                c.Draw(sb);
+            }
+
+            foreach (TextWindow txt in playTexts)
+            {
+                txt.Draw(sb, font);
+            }
+
+        }
+
+        private void UpdateCardPos()
+        {
+            if (player.GetCardsInHand().Count > cardAmountChecker)
+            {
+                clearance = screen_width / 9;
+                foreach (Card c in player.GetCardsInHand())
+                {
+                    c.SetPos(new Vector2(screen_width / 6 + clearance, screen_height / 4 * 3));
+                    clearance += screen_width / 9;
+                }
+            }
+            if (dealer.GetCardsInHand().Count > cardAmountChecker)
+            {
+                foreach (Card c in dealer.GetCardsInHand())
+                {
+                    c.SetPos(new Vector2(screen_width / 6 + clearance, screen_height / 4));
+                    clearance -= screen_width / 9;
+                }
+            }
+
+            if (player.GetCardsInHand().Count >= dealer.GetCardsInHand().Count)
+            {
+                cardAmountChecker = player.GetCardsInHand().Count;
+            }
+            else if (player.GetCardsInHand().Count <= dealer.GetCardsInHand().Count)
+            {
+                cardAmountChecker = dealer.GetCardsInHand().Count;
+            }
+        }
+
+        private void SpriteBatchHandler(GameTime gameTime)
+        {
+            if (currentState == Gamestate.Gamestates.menu)
+            {
+                foreach (Button b in menuButtons)
+                {
+                    b.Draw(sb, font);
+                }
+            }
+
+            if (currentState == Gamestate.Gamestates.betting)
+            {
+                foreach (TextWindow txt in bettingTexts)
+                {
+                    txt.Draw(sb, font);
+
+                }
+
+                foreach (Chip c in chips)
+                {
+                    c.Draw(sb);
+                }
+
+                foreach (Button b in bettingButtons)
+                {
+                    b.Draw(sb, font);
+                }
+            }
+
+
+            if (currentState == Gamestate.Gamestates.play)
+            {
+                CardDrawHandler();
+
+                foreach (Button b in playButtons)
+                {
+                    b.Draw(sb, font);
+                }
+            }
+
+            //This needs to draw the cards, results and additionally tell the player if they won or lost. 
+            //First might need to actually make the "play" state display cards correctly. - "Play" state now displays cards correctly! Will work on "result" next
+            if (currentState == Gamestate.Gamestates.result)
+            {
+                CardDrawHandler();
+
+                foreach (TextWindow text in resultTexts)
+                {
+                    text.Draw(sb, font);
+                }
+            }
+        }
     }
 }

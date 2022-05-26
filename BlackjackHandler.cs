@@ -16,11 +16,24 @@ namespace Kortspel
         int playerSum;
         int dealerSum;
         CardDeckHandler deckHandler;
+        List<Card> listToTakeFrom;
 
+
+
+        public void FillListWithDeck(CardDeck deck)
+        {
+            listToTakeFrom = new List<Card>();
+            foreach (Card c in deck.GetDeck())
+            {
+                listToTakeFrom.Add(c);
+            }
+        }
         public int GetBetChips()
         {
             return betChips;
         }
+
+
         public int CalcPlayerSum(Player player)
         {
             playerSum = 0;
@@ -60,6 +73,7 @@ namespace Kortspel
 
         public void GameStartSetup(CardDeck deck, Player player)
         {
+            
             deckHandler = new CardDeckHandler();
             deckHandler.shuffleDeck(deck);
             currentChips = player.GetChipAmount();
@@ -81,7 +95,7 @@ namespace Kortspel
             
         }
 
-        public void RemoveBet (int betChips, Player player)
+        public void RemoveBet(int betChips, Player player)
         {
             currentChips = player.GetChipAmount();
             this.betChips -= betChips;
@@ -94,15 +108,17 @@ namespace Kortspel
 
         public void RoundStart(CardDeck deck, Player player, Dealer dealer, Texture2D img)
         {
-            player.SetCardsInHand(deckHandler.GiveCards(2, deck));
-            dealer.SetCardsInHand(deckHandler.GiveCards(2, deck));
+        
+
+            player.SetCardsInHand(deckHandler.GiveCards(2, deck, listToTakeFrom));
+            dealer.SetCardsInHand(deckHandler.GiveCards(2, deck, listToTakeFrom));
             dealer.DealerFlip(dealer, img);
 
         }
 
         public bool PlayerHit(CardDeck deck, Player player, Dealer dealer)
         {
-            player.AddCardsToHand(deckHandler.GiveCards(1, deck), player);
+            player.AddCardsToHand(deckHandler.GiveCards(1, deck, listToTakeFrom), player);
             playerSum = CalcPlayerSum(player);
 
             if (playerSum > 21)
@@ -114,14 +130,15 @@ namespace Kortspel
         }
 
 
-        //Fix PlayerStand method being caught in endless loop
+        //Fix PlayerStand method being caught in endless loop - Fixed
+        //Fix PlayerStand giving a card to Player
         public bool PlayerStand (CardDeck deck, Dealer dealer, Player player, Texture2D img)
         {
             dealer.DealerFlip(dealer, img);
 
             while (dealerSum < 17)
             {
-                dealer.AddCardsToHand(deckHandler.GiveCards(1, deck), dealer);
+                dealer.AddCardsToHand(deckHandler.GiveCards(1, deck, listToTakeFrom), dealer);
                 CalcDealerSum(dealer);
             }
             if (dealerSum > 21)
@@ -131,7 +148,7 @@ namespace Kortspel
             else
                 return false;
         }
-        public void ResultCalcAndChipExchange(Player player)
+        public void ResultChipExchange(Player player)
         {
             if (playerSum > dealerSum && playerSum <= 21)
             {
@@ -141,7 +158,10 @@ namespace Kortspel
                 if (currentChips > highestChips)
                     highestChips = currentChips;
                 player.SetChipAmount(currentChips);
+                return true;
             }
+            else
+                return false;
                 
         }
     }

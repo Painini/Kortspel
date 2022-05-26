@@ -32,21 +32,15 @@ namespace Kortspel
             return deckToShuffle;
         }
 
-        public List<Card> GiveCards(int amountToGive, CardDeck deck)
+        public List<Card> GiveCards(int amountToGive, CardDeck deck, List<Card> listToTakeFrom)
         {
             cardsToGive = new List<Card>();
-            List<Card> listToTakeFrom = new List<Card>();
 
-            for (int i = 0; i < 52; i++)
-            {
-                listToTakeFrom.Add(deck.GetDeck()[i]);
-            }
             for (int i = 0; i < amountToGive; i++)
-            {
-                
+            {                
                 int randomNumber = random.Next(0, listToTakeFrom.Count - 1);
                 cardsToGive.Add(listToTakeFrom[randomNumber]);
-                listToTakeFrom.RemoveAt(randomNumber);   
+                listToTakeFrom.RemoveAt(randomNumber);
             }
             return cardsToGive;
         }
@@ -60,6 +54,7 @@ namespace Kortspel
 
             }
 
+            //Logic that would be used for Hover
             foreach (Card c in deck.GetDeck())
                 c.CreateBoundingBox(c.GetImg());
 

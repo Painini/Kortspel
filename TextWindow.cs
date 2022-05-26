@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
-    internal class TextBackground : Obj
+    internal class TextWindow : Obj
     {
         Color textColor;
         public string text;
         bool playerText;
 
-        public TextBackground(Texture2D img, Vector2 pos, string text, bool playerText):
+        public TextWindow(Texture2D img, Vector2 pos, string text, bool playerText):
            base()
         {
             this.pos = pos;
