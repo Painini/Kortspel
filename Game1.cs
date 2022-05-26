@@ -297,7 +297,7 @@ namespace Kortspel
                     }
                     else if (clicked == 1 && index == 1)
                     {
-                        result = blackjackHandler.PlayerStand(deck, dealer, player, cardBack);
+                        result = blackjackHandler.PlayerStand(dealer, cardBack);
                         newState = Gamestate.Gamestates.result;
                         currentState = GamestateHandler.ChangeGameState(currentState, newState);
                     }
@@ -440,6 +440,7 @@ namespace Kortspel
 
             //This needs to draw the cards, results and additionally tell the player if they won or lost. 
             //First might need to actually make the "play" state display cards correctly. - "Play" state now displays cards correctly! Will work on "result" next
+            //Current known issues: Calling the PlayerStand method still gives a card to the player sometimes. Cards still also sometimes dont display.
             if (currentState == Gamestate.Gamestates.result)
             {
                 CardDrawHandler();

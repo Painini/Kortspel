@@ -46,7 +46,7 @@ namespace Kortspel
 
         public int CalcDealerSum(Dealer dealer)
         {
-
+            dealerSum = 0;
             foreach (Card c in dealer.GetCardsInHand())
                 dealerSum += c.ReturnCardValue();
 
@@ -110,15 +110,15 @@ namespace Kortspel
         {
         
 
-            player.SetCardsInHand(deckHandler.GiveCards(2, deck, listToTakeFrom));
-            dealer.SetCardsInHand(deckHandler.GiveCards(2, deck, listToTakeFrom));
+            player.SetCardsInHand(deckHandler.GiveCards(2, listToTakeFrom));
+            dealer.SetCardsInHand(deckHandler.GiveCards(2, listToTakeFrom));
             dealer.DealerFlip(dealer, img);
 
         }
 
         public bool PlayerHit(CardDeck deck, Player player, Dealer dealer)
         {
-            player.AddCardsToHand(deckHandler.GiveCards(1, deck, listToTakeFrom), player);
+            player.AddCardsToHand(deckHandler.GiveCards(1, listToTakeFrom), player);
             playerSum = CalcPlayerSum(player);
 
             if (playerSum > 21)
@@ -131,14 +131,16 @@ namespace Kortspel
 
 
         //Fix PlayerStand method being caught in endless loop - Fixed
-        //Fix PlayerStand giving a card to Player
-        public bool PlayerStand (CardDeck deck, Dealer dealer, Player player, Texture2D img)
+        //Fix PlayerStand giving a card to Player !!! / Card gets added to player before PlayerStand is called. Issue must be in Game1.
+        //PlayerStand needed to call "CalcDealerSum" after flipping the card. CalcDealerSum also needed to reset dealerSum before doing calculations.
+        public bool PlayerStand(Dealer dealer, Texture2D img)
         {
             dealer.DealerFlip(dealer, img);
+            CalcDealerSum(dealer);
 
             while (dealerSum < 17)
             {
-                dealer.AddCardsToHand(deckHandler.GiveCards(1, deck, listToTakeFrom), dealer);
+                dealer.AddCardsToHand(deckHandler.GiveCards(1, listToTakeFrom), dealer);
                 CalcDealerSum(dealer);
             }
             if (dealerSum > 21)
@@ -158,11 +160,7 @@ namespace Kortspel
                 if (currentChips > highestChips)
                     highestChips = currentChips;
                 player.SetChipAmount(currentChips);
-                return true;
-            }
-            else
-                return false;
-                
+            }     
         }
     }
 }

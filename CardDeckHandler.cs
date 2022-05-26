@@ -32,7 +32,7 @@ namespace Kortspel
             return deckToShuffle;
         }
 
-        public List<Card> GiveCards(int amountToGive, CardDeck deck, List<Card> listToTakeFrom)
+        public List<Card> GiveCards(int amountToGive, List<Card> listToTakeFrom)
         {
             cardsToGive = new List<Card>();
 
