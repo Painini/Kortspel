@@ -37,6 +37,7 @@ namespace Kortspel
         private int screen_width = 1240;
         private int screen_height = 800;
         bool flag;
+        bool flag2;
         bool result;
         int clicked;
         int clearance;
@@ -81,6 +82,7 @@ namespace Kortspel
             playButtons = new List<Button>();
             resultButtons = new List<Button>();
             flag = false;
+            flag2 = true;
 
             base.Initialize();
         }
@@ -172,8 +174,8 @@ namespace Kortspel
             playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 150), "Hit"));
             playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 250), "Stand"));
 
-            menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Start Betting :)"));
-            menuButtons.Add(new Button(buttonTexture, new Vector2(720, 500), "Exit :C"));
+            menuButtons.Add(new Button(buttonTexture, new Vector2(520, 400), "Start Betting :)"));
+            menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Exit :C"));
 
             resultButtons.Add(new Button(buttonTexture, new Vector2(1000, 300), "Back to Menu"));
 
@@ -272,11 +274,15 @@ namespace Kortspel
             if (currentState == Gamestate.Gamestates.play)
             {
                 if (flag)
-                {
+                {                       
+                    if (flag2)
+                    {
+                        deck = deckHandler.AssignImg(cardImgs, deck);
+                        blackjackHandler.FillListWithDeck(deck);
+                        deckHandler.AssignValues(deck);
+                        flag2 = false;
+                    }
                     clearance = screen_width / 9;
-                    deck = deckHandler.AssignImg(cardImgs, deck);
-                    blackjackHandler.FillListWithDeck(deck);
-                    deckHandler.AssignValues(deck);
                     blackjackHandler.RoundStart(deck, player, dealer, cardBack);
                     flag = false;
 
@@ -284,9 +290,8 @@ namespace Kortspel
                     playTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString(), false));
 
                     //See why the hell sometimes it only shows 1 card for player IGNORE FOR NOW TRY TO DO BLACKJACK LOGIC FIRST
+                    //Other known issues: When hit is called, player sometimes seems to take a card from the dealer's hand. 
                 }
-
-                UpdateCardPos();
 
                 foreach (Button b in playButtons)
                 {
@@ -295,7 +300,8 @@ namespace Kortspel
                     int index = playButtons.IndexOf(b);
                     if (clicked == 1 && index == 0)
                     {
-                        result = blackjackHandler.PlayerHit(player);
+                        blackjackHandler.PlayerHit(player);
+                        result = false;
                         if (blackjackHandler.GetPlayerSum() > 21)
                         {
                             newState = Gamestate.Gamestates.result;
@@ -336,14 +342,14 @@ namespace Kortspel
                     clicked = bBoxHandler.Click(b);
                     if (clicked == 1)
                     {
+                        cardAmountChecker = 0;
+                        playTexts.Clear();
+                        blackjackHandler.ResetForNextRound(player, dealer);
                         newState = Gamestate.Gamestates.menu;
                         currentState = GamestateHandler.ChangeGameState(currentState, newState);
                     }
                 }
-
-                
-                
-
+                //UpdateCardPos();
             }
 
 

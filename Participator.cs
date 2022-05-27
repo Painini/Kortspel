@@ -27,6 +27,10 @@ namespace Kortspel
             }
         }
 
+        public void RemoveCardsFromHand()
+        {
+            cardsInHand.Clear();
+        }
 
     }
 }

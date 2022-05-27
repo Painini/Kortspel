@@ -79,8 +79,8 @@ namespace Kortspel
             deckHandler.shuffleDeck(deck);
             currentChips = player.GetChipAmount();
             startingChips = previousChipAmount;
-            if (player.GetChipAmount() < startingChips)
-                player.SetChipAmount(startingChips);
+            if (player.GetChipAmount() < 1500)
+                player.SetChipAmount(1500);
         }
 
         public void Bet(int betChips, Player player)
@@ -118,17 +118,18 @@ namespace Kortspel
 
         }
 
-        public bool PlayerHit(Player player)
+        public void PlayerHit(Player player)
         {
             player.AddCardsToHand(deckHandler.GiveCards(1, listToTakeFrom), player);
             playerSum = CalcPlayerSum(player);
 
-            if (ResultChipExchange(player))
+            if (playerSum > 21)
             {
-                return false;
+               ResultChipExchange(player);
+                
+                
             }
-            else
-                return true;
+
         }
 
 
@@ -155,6 +156,8 @@ namespace Kortspel
         //Betchips does not set itself to zero.
         public bool ResultChipExchange(Player player)
         {
+            //Player receives chips despite losing when dealer wins by having a higher number
+            //On succequent plays the card positions get completely thrown off.
             if ((playerSum > dealerSum && playerSum <= 21) || dealerSum > 21)
             {
                 currentChips += betChips;
@@ -166,16 +169,27 @@ namespace Kortspel
                 player.SetChipAmount(currentChips);
                 betChips = 0;
                 return true;
-                
-
+            }
+            else if (playerSum == dealerSum)
+            {
+                player.SetChipAmount(currentChips + betChips);
+                betChips = 0;
+                return false;
             }
             else
             {
                 betChips = 0;
                 return false;
-            }
-                
-            
+            }                 
+        }
+
+
+        public void ResetForNextRound(Player player, Dealer dealer)
+        {
+            player.RemoveCardsFromHand();
+            dealer.RemoveCardsFromHand();
+
+
         }
     }
 }

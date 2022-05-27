@@ -11,6 +11,10 @@ namespace Kortspel
         Card card;
         //May build on later
 
+        public Card GetDealerFlippedCard()
+        {
+            return card;
+        }
 
         public void DealerFlip(Dealer dealer, Texture2D img)
         {

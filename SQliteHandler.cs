@@ -9,8 +9,8 @@ namespace Kortspel
 {
     class SQliteHandler
     {
-
-        string? _db_name;
+        //Work on SQlite next
+        string _db_name;
         string _cs;
         SQLiteConnection _connection;
         SQLiteCommand _cmd;
