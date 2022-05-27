@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Kortspel
 {
 
-    //Some things that are in both Button and Card will be missing rom Obj, as Obj is might be used for more objects in the future (chips).
+    //Base class for several other classes.
     public abstract class Obj
     {
         protected Texture2D img;

@@ -16,6 +16,8 @@ namespace Kortspel
             return card;
         }
 
+        
+        //Flips a dealer's card.
         public void DealerFlip(Dealer dealer, Texture2D img)
         {
             card = dealer.GetCardsInHand()[dealer.GetCardsInHand().Count - 1];

@@ -6,6 +6,7 @@ namespace Kortspel
 {
     public static class Gamestate
     {
+        //Enum of Gamestates.
         public enum Gamestates
         {
             menu,

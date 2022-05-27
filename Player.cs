@@ -26,5 +26,9 @@ namespace Kortspel
             chipAmount = newChipAmount;
         }
 
+        public string GetName()
+        {
+            return name;
+        }
     }
 }

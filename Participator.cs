@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Kortspel
 {
+    //Base class for Dealer and Player
     public abstract class Participator
     {
         List<Card> cardsInHand;

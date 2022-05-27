@@ -62,7 +62,7 @@ namespace Kortspel
             graphics.ApplyChanges();
 
 
-            sqlitehandler = new SQliteHandler("databastim.db");
+            sqlitehandler = new SQliteHandler("kortspel.db");
             sqlitehandler.CreateTable();
 
 
@@ -72,7 +72,14 @@ namespace Kortspel
 
             chipImgs = new Texture2D[6];
 
-            player = new Player("Tim", 20);
+            player = new Player("Tim", 0);
+
+            //Fix so that player gets added to the database with the correct chip amount - Done
+            sqlitehandler.AddPlayerToTable(player);
+            player.SetChipAmount(sqlitehandler.ReturnPlayerChipAmount());
+            sqlitehandler.UpdateDatabaseChipAmount(player.GetChipAmount().ToString(), 1);
+
+
             dealer = new Dealer();
             bBoxHandler = new BoundingBoxHandler();
             blackjackHandler = new BlackjackHandler();
@@ -198,6 +205,8 @@ namespace Kortspel
 
             MouseReader.Update();
 
+            
+            //Updates positions and values for textwindows every Update cycle.
             foreach (TextWindow txt in bettingTexts)
             {
                 txt.Update(player, blackjackHandler);
@@ -207,27 +216,23 @@ namespace Kortspel
                 txt.Update(player, blackjackHandler);
             }
 
-            //foreach (Card c in deck.GetDeck())
-            //{
-            //    c.Update(deck.GetDeck());
-            //}
-
-
-            //BBH.CardHoverLogic(player);
-
-
+            //Game logic for if the current Gamestate is "menu"
             if (currentState == Gamestate.Gamestates.menu)
             {
+
+                //Checks which button was clicked and does logic accordingly.
                 foreach (Button b in menuButtons)
                 {
                     clicked = bBoxHandler.Click(b);
                     int index = menuButtons.IndexOf(b);
 
+                    //Changes Gamestate to "betting" if the button with index "0" is clicked.
                     if (clicked == 1 && index == 0)
                     {
                         newState = Gamestate.Gamestates.betting;
                         currentState = GamestateHandler.ChangeGameState(currentState, newState);
                     }
+                    //Exits program
                     if (clicked == 1 && index == 1)
                     {
                         Exit();
@@ -237,14 +242,14 @@ namespace Kortspel
 
             if (currentState == Gamestate.Gamestates.betting)
             {
-
+                //Sets up game if flag isn't true
                 if (!flag)
                 {
                     blackjackHandler.GameStartSetup(deck, player);
                     flag = true;
                 }
-                
 
+                //Checks which chip was clicked and with which button it was clicked and does logic accordingly.
                 foreach (Chip c in chips)
                 {
                     clicked = bBoxHandler.Click(c);
@@ -259,6 +264,7 @@ namespace Kortspel
                     }
                 }
 
+                //Checks if the button was clicked and does logic accordingly.
                 foreach (Button b in bettingButtons)
                 {
                     clicked = bBoxHandler.Click(b);
@@ -273,8 +279,10 @@ namespace Kortspel
 
             if (currentState == Gamestate.Gamestates.play)
             {
+
                 if (flag)
-                {                       
+                {   
+                    //Checks if "flag2" is true. This is kept separate from the "flag" bool as it is only meant to play once everytime the game is run.
                     if (flag2)
                     {
                         deck = deckHandler.AssignImg(cardImgs, deck);
@@ -289,9 +297,10 @@ namespace Kortspel
                     playTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString(), true));
                     playTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2 + 200, screen_height / 2), blackjackHandler.CalcDealerSum(dealer).ToString(), false));
 
-                    //See why the hell sometimes it only shows 1 card for player IGNORE FOR NOW TRY TO DO BLACKJACK LOGIC FIRST
-                    //Other known issues: When hit is called, player sometimes seems to take a card from the dealer's hand. 
+                    //known issues: When hit is called, player sometimes seems to take a card from the dealer's hand. Sometimes only gives player or dealer a single card.
                 }
+
+                //During Play, the game checks whether the player Hits or Stands and does logic accordingly. If the player loses or wins, the Gamestate is changed to "result".
 
                 foreach (Button b in playButtons)
                 {
@@ -308,7 +317,7 @@ namespace Kortspel
                             currentState = GamestateHandler.ChangeGameState(currentState, newState);
                         }
                     }
-                    //Somehow, as soon as the conditions for the below if-statement are true, a card is placed into the player's hand. Will try calling click on each button separately. Did not work.
+                    //Somehow, as soon as the conditions for the below if-statement are true, a card is placed into the player's hand. Will try calling click on each button separately. - Problem with hitboxes made the game go into both PlayerHit and PlayerStand in the same Update cycle. Now fixed.
                     if (clicked == 1 && index == 1)
                     {
                         result = blackjackHandler.PlayerStand(dealer, cardBack, player);
@@ -321,13 +330,13 @@ namespace Kortspel
                 }
             }
 
-            //Result will now Update card Pos itself, so that any cards added during the "play" state's last Update cycle are shown correctly.
             //Sometimes cards will stop being drawn on screen.
-            //It also seems like the game will sometimes take cards from the dealer's hand and put it in the player's hand, will check it out.
             //For now I will try to make Result work.
 
             if (currentState == Gamestate.Gamestates.result)
             {
+
+                //the "result" Gamestate shows whether the player won or lost and lets the player return to the "menu" Gamestate. This also resets some values to be used in the next round.
                 if (result)
                 {
                     resultTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2, screen_height / 2), "You Win!", false));
@@ -342,16 +351,16 @@ namespace Kortspel
                     clicked = bBoxHandler.Click(b);
                     if (clicked == 1)
                     {
+
                         cardAmountChecker = 0;
                         playTexts.Clear();
                         blackjackHandler.ResetForNextRound(player, dealer);
                         newState = Gamestate.Gamestates.menu;
                         currentState = GamestateHandler.ChangeGameState(currentState, newState);
+                        sqlitehandler.UpdateDatabaseChipAmount(player.GetChipAmount().ToString(), 1);
                     }
-                }
-                //UpdateCardPos();
+                }         
             }
-
 
             //Do NOT set to true!
             while (false)
@@ -363,10 +372,11 @@ namespace Kortspel
 
         protected override void Draw(GameTime gameTime)
         {
+            //Draws all logic on screen.
             GraphicsDevice.Clear(Color.DarkGreen);
 
             sb.Begin();
-            SpriteBatchHandler(gameTime);
+            SpriteBatchHandler();
             sb.End();
 
             base.Draw(gameTime);
@@ -374,6 +384,7 @@ namespace Kortspel
 
         private void CardDrawHandler()
         {
+            //Handles drawing of all cards and sum displays.
             foreach (Card c in player.GetCardsInHand())
             {
                 c.Draw(sb);
@@ -393,6 +404,7 @@ namespace Kortspel
 
         private void UpdateCardPos()
         {
+            //Updates card positions on screen. Known Issue: A card will sometimes be put into its base position, the top left corner.
             if (player.GetCardsInHand().Count > cardAmountChecker)
             {
                 clearance = screen_width / 9;
@@ -404,9 +416,10 @@ namespace Kortspel
             }
             if (dealer.GetCardsInHand().Count > cardAmountChecker)
             {
+                clearance = screen_width / 9;
                 foreach (Card c in dealer.GetCardsInHand())
                 {
-                    c.SetPos(new Vector2(screen_width / 6 + clearance, screen_height / 4));
+                    c.SetPos(new Vector2(screen_width / 2 + screen_width / 7 + clearance, screen_height / 4));
                     clearance -= screen_width / 9;
                 }
             }
@@ -421,8 +434,10 @@ namespace Kortspel
             }
         }
 
-        private void SpriteBatchHandler(GameTime gameTime)
+        private void SpriteBatchHandler()
         {
+
+            //Handles all the drawing done in the program. Is called in Game1's "Draw" method.
             if (currentState == Gamestate.Gamestates.menu)
             {
                 foreach (Button b in menuButtons)

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
+    //TextWindows are Objs that display text with a given background.
     internal class TextWindow : Obj
     {
         Color textColor;

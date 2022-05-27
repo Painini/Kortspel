@@ -9,12 +9,11 @@ namespace Kortspel
 {
     public class Button: Obj
     {
+        //Buttons are interactable Objs that are used to change Gamestates and other things.
         bool isHovering;
         Color textColor;
         public string text;
 
-
-        //Fortsätt här sen
         public Button(Texture2D img, Vector2 pos, string text):
             base()
         {

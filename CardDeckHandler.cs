@@ -6,11 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
+
     public class CardDeckHandler
     {
         Random random = new Random();
         List<Card> cardsToGive;
 
+        //Shuffles a given CardDeck
         public CardDeck shuffleDeck(CardDeck deckToShuffle)
         {
             CardDeck unshuffledDeck = new CardDeck();
@@ -32,6 +34,7 @@ namespace Kortspel
             return deckToShuffle;
         }
 
+        //Returns given amount of randomly selected cards.
         public List<Card> GiveCards(int amountToGive, List<Card> listToTakeFrom)
         {
             cardsToGive = new List<Card>();
@@ -45,6 +48,7 @@ namespace Kortspel
             return cardsToGive;
         }
 
+        //Assigns given image to each card in a given CardDeck
         public CardDeck AssignImg(Texture2D[] imgs, CardDeck deck)
         {
             for (int i = 0; i < 52; i++)
@@ -61,8 +65,10 @@ namespace Kortspel
             return deck;
         }
 
+        //Assigns values to each Card in a given CardDeck
         public void AssignValues(CardDeck deck)
         {
+            #region
             deck.GetDeck()[0].SetValue(1);
             deck.GetDeck()[1].SetValue(2);
             deck.GetDeck()[2].SetValue(3);
@@ -118,24 +124,7 @@ namespace Kortspel
             deck.GetDeck()[49].SetValue(10);
             deck.GetDeck()[50].SetValue(10);
             deck.GetDeck()[51].SetValue(10);
-        }
-
-        //Attempt at removing cards that are given out from a deck, so that they cannot appear twice in the same round.
-
-        //public CardDeck RemoveCardsFromDeck(List<Card> cardsToRemove, CardDeck deck)
-        //{
-
-
-        //    CardDeck newDeck = new CardDeck();
-
-
-
-        //}
-
-
-        public CardDeckHandler()
-        {
-
+            #endregion
         }
 
     }

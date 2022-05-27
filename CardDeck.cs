@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
+    //A CardDeck is an array of Cards.
     public class CardDeck
     {
         private Card[] deck = new Card[52];

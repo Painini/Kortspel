@@ -8,8 +8,6 @@ namespace Kortspel
 {
     public class BlackjackHandler
     {
-
-        int startingChips;
         int betChips;
         int highestChips;
         int currentChips;
@@ -65,20 +63,19 @@ namespace Kortspel
         }
 
         
-
+        //Calulates player and dealer card value sum.
         public void CalcSums(Player player, Dealer dealer)
         {
             CalcPlayerSum(player);
             CalcDealerSum(dealer);
         }
 
+        //Method that prepares variables for the "play" Gamestate.
         public void GameStartSetup(CardDeck deck, Player player)
-        {
-            
+        {            
             deckHandler = new CardDeckHandler();
             deckHandler.shuffleDeck(deck);
             currentChips = player.GetChipAmount();
-            startingChips = previousChipAmount;
             if (player.GetChipAmount() < 1500)
                 player.SetChipAmount(1500);
         }
@@ -99,25 +96,22 @@ namespace Kortspel
             currentChips = player.GetChipAmount();
             this.betChips -= betChips;
             currentChips += betChips;
-
-
-
             if (currentChips <= previousChipAmount)
                 player.SetChipAmount(currentChips);
             else
                 this.betChips += betChips;
         }
 
-        public void RoundStart(CardDeck deck, Player player, Dealer dealer, Texture2D img)
+        //Method that puts cards into both player's and dealer's hands.
+        public void RoundStart(Player player, Dealer dealer, Texture2D img)
         {
-        
-
             player.SetCardsInHand(deckHandler.GiveCards(2, listToTakeFrom));
             dealer.SetCardsInHand(deckHandler.GiveCards(2, listToTakeFrom));
             dealer.DealerFlip(dealer, img);
 
         }
 
+        //Adds card to player's hand, checks if it went over 21, calls "ResultChipExchange" if it does.
         public void PlayerHit(Player player)
         {
             player.AddCardsToHand(deckHandler.GiveCards(1, listToTakeFrom), player);
@@ -125,17 +119,16 @@ namespace Kortspel
 
             if (playerSum > 21)
             {
-               ResultChipExchange(player);
-                
-                
+               ResultChipExchange(player);              
             }
-
         }
 
 
         //Fix PlayerStand method being caught in endless loop - Fixed
         //Fix PlayerStand giving a card to Player !!! / Card gets added to player before PlayerStand is called. Issue must be in Game1.
         //PlayerStand needed to call "CalcDealerSum" after flipping the card. CalcDealerSum also needed to reset dealerSum before doing calculations.
+
+        //Puts cards into dealer's hand until desired conditions are met. Calls "ResultChipExchange" method.
         public bool PlayerStand(Dealer dealer, Texture2D img, Player player)
         {
             dealer.DealerFlip(dealer, img);
@@ -153,7 +146,10 @@ namespace Kortspel
             else
                 return false;
         }
-        //Betchips does not set itself to zero.
+        //Betchips does not set itself to zero. - fixed
+
+
+        //If player won, rewards player with more chips. If not, resets their bet chip amount and does not give them back anything.
         public bool ResultChipExchange(Player player)
         {
             //Player receives chips despite losing when dealer wins by having a higher number

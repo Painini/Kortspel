@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
+    //Cards are Objs whose values decide the outcome of matches.
     public class Card: Obj
     {
         private int value;

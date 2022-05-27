@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Kortspel
 {
+
+    //Chips are interactable Objs that, when clicked, let the user Bet different amounts on each round.
     internal class Chip: Obj
     {
         int chipValue;

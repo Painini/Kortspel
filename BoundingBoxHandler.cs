@@ -21,6 +21,8 @@ namespace Kortspel
                 }    
         }
 
+
+        //Checks if the user Clicks.
         public int Click(Obj obj)
         {
             if (MouseReader.LeftClick() && obj.GetBoundingBox().Contains(MouseReader.mouseState.Position))
