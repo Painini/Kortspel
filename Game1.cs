@@ -28,6 +28,7 @@ namespace Kortspel
         private Texture2D[] chipImgs;
         private Texture2D cardBack;
         private Texture2D buttonTexture;
+        private List<TextWindow> menuTexts;
         private List<TextWindow> bettingTexts;
         private List<TextWindow> playTexts;
         private List<TextWindow> resultTexts;
@@ -170,6 +171,7 @@ namespace Kortspel
             whiteBg = Content.Load<Texture2D>("whitebg");
             font = Content.Load<SpriteFont>("font");
 
+            menuTexts = new List<TextWindow>();
             bettingTexts = new List<TextWindow>();
             playTexts = new List<TextWindow>();
             resultTexts = new List<TextWindow>();
@@ -181,12 +183,14 @@ namespace Kortspel
             playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 150), "Hit"));
             playButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2 + 250), "Stand"));
 
-            menuButtons.Add(new Button(buttonTexture, new Vector2(520, 400), "Start Betting :)"));
-            menuButtons.Add(new Button(buttonTexture, new Vector2(520, 500), "Exit :C"));
+            menuButtons.Add(new Button(buttonTexture, new Vector2(555, 400), "Start Betting :)"));
+            menuButtons.Add(new Button(buttonTexture, new Vector2(555, 500), "Exit :C"));
 
-            resultButtons.Add(new Button(buttonTexture, new Vector2(1000, 300), "Back to Menu"));
+            menuTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2, screen_height / 2 - 150), "Blackjack!", false));
 
-            bettingButtons.Add(new Button(buttonTexture, new Vector2(1100, screen_height / 2), "Deal Cards"));
+            resultButtons.Add(new Button(buttonTexture, new Vector2(1000, 370), "Back to Menu"));
+
+            bettingButtons.Add(new Button(buttonTexture, new Vector2(1000, screen_height / 2), "Deal Cards"));
 
             chips.Add(new Chip(chipImgs[0], 5, new Vector2(screen_width / 3, screen_height / 3)));
             chips.Add(new Chip(chipImgs[1], 25, new Vector2(screen_width / 2, screen_height / 3)));
@@ -291,7 +295,7 @@ namespace Kortspel
                         flag2 = false;
                     }
                     clearance = screen_width / 9;
-                    blackjackHandler.RoundStart(deck, player, dealer, cardBack);
+                    blackjackHandler.RoundStart(player, dealer, cardBack);
                     flag = false;
 
                     playTexts.Add(new TextWindow(whiteBg, new Vector2(screen_width / 2 - 200, screen_height / 2), blackjackHandler.CalcPlayerSum(player).ToString(), true));
@@ -360,12 +364,6 @@ namespace Kortspel
                         sqlitehandler.UpdateDatabaseChipAmount(player.GetChipAmount().ToString(), 1);
                     }
                 }         
-            }
-
-            //Do NOT set to true!
-            while (false)
-            {
-                DestroyEarthHandler.AnnihilateEarth();
             }
             base.Update(gameTime);
         }
@@ -443,6 +441,11 @@ namespace Kortspel
                 foreach (Button b in menuButtons)
                 {
                     b.Draw(sb, font);
+                }
+
+                foreach (TextWindow txt in menuTexts)
+                {
+                    txt.Draw(sb, font);
                 }
             }
 
